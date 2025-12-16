@@ -1,0 +1,70 @@
+flight-ontime-api/
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── flightontime/
+│   │   │           └── api/
+│   │   │               ├── FlightOnTimeApplication.java    # Classe principal
+│   │   │               │
+│   │   │               ├── controller/                     # Camada de apresentação
+│   │   │               │   └── FlightController.java       # Endpoints REST
+│   │   │               │
+│   │   │               ├── service/                        # Camada de negócio
+│   │   │               │   └── FlightPredictionService.java # Lógica mockada
+│   │   │               │
+│   │   │               ├── dto/                            # Data Transfer Objects
+│   │   │               │   ├── FlightPredictionRequest.java
+│   │   │               │   ├── FlightPredictionResponse.java
+│   │   │               │   └── ErrorResponse.java
+│   │   │               │
+│   │   │               ├── exception/                      # Tratamento de erros
+│   │   │               │   └── GlobalExceptionHandler.java
+│   │   │               │
+│   │   │               └── config/                         # Configurações
+│   │   │                   └── OpenApiConfig.java          # Swagger
+│   │   │
+│   │   └── resources/
+│   │       └── application.properties                      # Configurações da app
+│   │
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── flightontime/
+│                   └── api/
+│                       ├── FlightOnTimeApplicationTests.java
+│                       └── service/
+│                           └── FlightPredictionServiceTest.java
+│
+├── postman/
+│   └── FlightOnTime_API.postman_collection.json          # Collection de testes
+│
+├── pom.xml                                                # Dependências Maven
+├── .gitignore                                             # Arquivos ignorados pelo Git
+│
+├── README.md                                              # Documentação principal
+├── TAREFAS.md                                             # Divisão de tarefas do time
+├── INTEGRACAO_DS.md                                       # Guia de integração com DS
+├── COMANDOS.md                                            # Comandos úteis
+└── INSTALACAO.md                                          # Guia de instalação
+
+ESTRUTURA FUTURA (A implementar):
+│
+├── src/main/java/com/flightontime/api/
+│   ├── client/                                            # Semana 2
+│   │   └── PredictionClient.java                         # WebClient para Python
+│   │
+│   ├── model/                                             # Se precisar de entidades
+│   │   └── (futuro)
+│   │
+│   └── util/                                              # Classes utilitárias
+│       └── (futuro)
+│
+├── docker/                                                # Semana 5
+│   ├── Dockerfile
+│   └── docker-compose.yml
+│
+└── .github/                                               # CI/CD
+    └── workflows/
+        └── maven.yml

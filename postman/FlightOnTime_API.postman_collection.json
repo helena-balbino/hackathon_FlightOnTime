@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "f1a2b3c4-d5e6-7f8g-9h0i-1j2k3l4m5n6o",
+		"name": "FlightOnTime API",
+		"description": "Collection para testar a API de previsão de atrasos em voos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"API está rodando\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"running\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"health"
+					]
+				},
+				"description": "Verifica se a API está rodando corretamente"
+			},
+			"response": []
+		},
+		{
+			"name": "Previsão - Voo Pontual (Manhã)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response possui campos obrigatórios\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('previsao');",
+							"    pm.expect(jsonData).to.have.property('probabilidade');",
+							"});",
+							"",
+							"pm.test(\"Previsão é string válida\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(['Pontual', 'Atrasado']).to.include(jsonData.previsao);",
+							"});",
+							"",
+							"pm.test(\"Probabilidade está entre 0 e 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.probabilidade).to.be.within(0, 1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companhia\": \"AZ\",\n  \"origem\": \"GIG\",\n  \"destino\": \"GRU\",\n  \"data_partida\": \"2025-11-10T08:30:00\",\n  \"distancia_km\": 350\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Exemplo de voo com alta probabilidade de ser PONTUAL:\n- Voo de manhã (08:30)\n- Curta distância (350km)\n- Companhia com boa reputação (AZ)"
+			},
+			"response": []
+		},
+		{
+			"name": "Previsão - Voo Atrasado (Noite)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response possui campos obrigatórios\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('previsao');",
+							"    pm.expect(jsonData).to.have.property('probabilidade');",
+							"});",
+							"",
+							"pm.test(\"Previsão é string válida\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(['Pontual', 'Atrasado']).to.include(jsonData.previsao);",
+							"});",
+							"",
+							"pm.test(\"Probabilidade está entre 0 e 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.probabilidade).to.be.within(0, 1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companhia\": \"LA\",\n  \"origem\": \"GRU\",\n  \"destino\": \"MAO\",\n  \"data_partida\": \"2025-11-15T20:45:00\",\n  \"distancia_km\": 2850\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Exemplo de voo com alta probabilidade de ATRASO:\n- Voo à noite (20:45)\n- Longa distância (2850km)\n- Sexta-feira (maior movimento)"
+			},
+			"response": []
+		},
+		{
+			"name": "Previsão - Voo Fim de Semana",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response possui campos obrigatórios\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('previsao');",
+							"    pm.expect(jsonData).to.have.property('probabilidade');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companhia\": \"G3\",\n  \"origem\": \"CGH\",\n  \"destino\": \"SDU\",\n  \"data_partida\": \"2025-11-16T14:00:00\",\n  \"distancia_km\": 400\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Exemplo de voo no fim de semana (sábado):\n- Tendência de menor movimento\n- Média distância\n- Horário intermediário"
+			},
+			"response": []
+		},
+		{
+			"name": "Erro - Validação (Campos Ausentes)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 400 (Bad Request)\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response contém detalhes do erro\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('status');",
+							"    pm.expect(jsonData).to.have.property('error');",
+							"    pm.expect(jsonData).to.have.property('message');",
+							"    pm.expect(jsonData).to.have.property('errors');",
+							"});",
+							"",
+							"pm.test(\"Lista de erros não está vazia\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errors).to.be.an('array').that.is.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companhia\": \"\",\n  \"origem\": \"GIG\",\n  \"distancia_km\": -100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Teste de validação com dados inválidos:\n- Companhia vazia\n- Campos obrigatórios ausentes (destino, data_partida)\n- Distância negativa"
+			},
+			"response": []
+		},
+		{
+			"name": "Erro - Validação (Distância Negativa)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 400 (Bad Request)\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Erro menciona distância inválida\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var errorMessages = jsonData.errors.join(' ');",
+							"    pm.expect(errorMessages).to.include('distancia');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companhia\": \"AZ\",\n  \"origem\": \"GIG\",\n  \"destino\": \"GRU\",\n  \"data_partida\": \"2025-11-10T14:30:00\",\n  \"distancia_km\": 0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Teste específico para validação de distância:\n- Distância zero (deve ser positiva)"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
