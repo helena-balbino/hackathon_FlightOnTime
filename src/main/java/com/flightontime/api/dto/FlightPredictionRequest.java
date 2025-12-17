@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,16 +26,19 @@ public class FlightPredictionRequest {
 
     @NotBlank(message = "Companhia aérea é obrigatória")
     @Schema(description = "Código IATA da companhia aérea", example = "AZ")
+    @Size(min =2, max = 2, message = "O código da companhia aérea deve ter 2 caracteres")
     @JsonProperty("companhia")
     private String companhia;
 
     @NotBlank(message = "Aeroporto de origem é obrigatório")
     @Schema(description = "Código IATA do aeroporto de origem", example = "GIG")
+    @Size(min = 3,max = 3, message = "A origem deve ter 3 caracteres (IATA)")
     @JsonProperty("origem")
     private String origem;
 
     @NotBlank(message = "Aeroporto de destino é obrigatório")
     @Schema(description = "Código IATA do aeroporto de destino", example = "GRU")
+    @Size(min = 3,max = 3, message = "O destino deve ter 3 caracteres (IATA)")
     @JsonProperty("destino")
     private String destino;
 
