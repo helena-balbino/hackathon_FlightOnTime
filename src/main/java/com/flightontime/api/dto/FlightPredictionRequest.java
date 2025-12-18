@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,19 +26,19 @@ public class FlightPredictionRequest {
 
     @NotBlank(message = "Companhia aérea é obrigatória")
     @Schema(description = "Código IATA da companhia aérea", example = "AZ")
-    @Size(min =2, max = 2, message = "O código da companhia aérea deve ter 2 caracteres")
+    @Pattern(regexp = "^[A-Z]{2}$", message = "O código da companhia aérea deve conter exatamente 2 letras maiúsculas (IATA)")
     @JsonProperty("companhia")
     private String companhia;
 
     @NotBlank(message = "Aeroporto de origem é obrigatório")
     @Schema(description = "Código IATA do aeroporto de origem", example = "GIG")
-    @Size(min = 3,max = 3, message = "A origem deve ter 3 caracteres (IATA)")
+    @Pattern(regexp = "^[A-Z]{3}$", message = "A origem deve ser um código IATA válido, composto por exatamente 3 letras maiúsculas")
     @JsonProperty("origem")
     private String origem;
 
     @NotBlank(message = "Aeroporto de destino é obrigatório")
     @Schema(description = "Código IATA do aeroporto de destino", example = "GRU")
-    @Size(min = 3,max = 3, message = "O destino deve ter 3 caracteres (IATA)")
+    @Pattern(regexp = "^[A-Z]{3}$", message = "O destino deve ser um código IATA válido, composto por exatamente 3 letras maiúsculas")
     @JsonProperty("destino")
     private String destino;
 
