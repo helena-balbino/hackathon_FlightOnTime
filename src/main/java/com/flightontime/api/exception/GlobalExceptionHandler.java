@@ -91,4 +91,23 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
+    /**
+     * Trata erros de formatação JSON (ex: data inválida ou string no lugar de número)
+     */
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleJsonErrors(
+            org.springframework.http.converter.HttpMessageNotReadableException ex,
+            HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(java.time.LocalDateTime.now())
+                .status(org.springframework.http.HttpStatus.BAD_REQUEST.value())
+                .error("Bad Request")
+                .message("Formato de JSON inválido. Verifique se as datas estão corretas e os números válidos.")
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
 }
