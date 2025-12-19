@@ -31,17 +31,18 @@ public class FlightPredictionService {
      * @return Previsão com status e probabilidade
      */
     public FlightPredictionResponse predict(FlightPredictionRequest request) {
-        log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})", 
+        log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})",
                 request.getOrigem(), 
                 request.getDestino(), 
                 request.getCompanhia());
+
 
         // MOCK: Lógica simples baseada em heurísticas
         double probabilidadeAtraso = calcularProbabilidadeMock(request);
         
         String previsao = probabilidadeAtraso > 0.5 ? "Atrasado" : "Pontual";
-        
-        log.info("✅ Previsão: {} (Probabilidade: {:.2f})", previsao, probabilidadeAtraso);
+
+        log.info("✅ Previsão: {} (Probabilidade: {})", previsao, Math.round(probabilidadeAtraso * 100.0) / 100.0);
 
         return FlightPredictionResponse.builder()
                 .previsao(previsao)
@@ -71,17 +72,71 @@ public class FlightPredictionService {
             score += 0.15; // Sexta: mais atraso
         }
 
-        // Fator 3: Distância
-        if (request.getDistanciaKm() < 500) {
+        int distancia = request.getDistanciaKm();
+        if (distancia < 500) {
             score -= 0.1; // Voo curto: menos atraso
-        } else if (request.getDistanciaKm() > 1500) {
+        } else if (distancia > 1500) {
             score += 0.1; // Voo longo: mais atraso
         }
 
         // Fator 4: Companhias específicas (simulação)
         if ("AZ".equalsIgnoreCase(request.getCompanhia())) {
             score -= 0.05; // Companhia com boa pontualidade
+        } else if ("G3".equalsIgnoreCase(request.getCompanhia())) {
+            score += 0.05; // Companhia com boa pontualidade
+        } else if ("LA".equalsIgnoreCase(request.getCompanhia())) {
+            score -= 0.05; // Companhia com boa pontualidade
         }
+
+        // Fator 5: Datas Críticas (Ex: Natal/Ano Novo/carnaval)
+        int dia = request.getDataPartida().getDayOfMonth();
+        int mes = request.getDataPartida().getMonthValue();
+
+        // Natal / Ano Novo
+        if (mes == 12 && dia >= 20) {
+            score += 0.20;
+
+            if (distancia < 500) {
+                log.info("🔄 Voo curto em período crítico: risco de efeito cascata.");
+                score += 0.08;
+            }
+            log.info("Fator Sazonal: Período de festas e alta demanda.");
+        }
+
+
+        // Fator 6: Tempestades de verão
+        int hora = horario.getHour();
+        if ((mes == 12 || mes <= 2) && (hora >= 16 && hora <= 20)) {
+            score += 0.15;
+            log.info("Alerta Clima: Voo em janela de alta probabilidade de chuvas fortes.");
+        }
+
+        // Fator 7: Aeroportos que devido ao fluxo elevado tendem a ter maior atraso
+        java.util.List<String> hubs = java.util.Arrays.asList("GRU", "CGH", "BSB", "SDU");
+        if (hubs.contains(request.getOrigem().toUpperCase())) {
+            score += 0.18;
+            log.info("Alerta Hub: Origem em aeroporto de alta densidade detectada.");
+        }
+
+
+        // ------------------------------- Fatores Mitigantes --------------------------------
+        // Pra o nosso mock não ficar tão pessimista e acabar tendendo muito ao atraso vou adicionar alguns casos onde o voo tende a ser mais pontual pesquisei alguns fatores na IA
+
+
+        // 1º fator mitigante: Aeroportos maiores e com baixo fluxo
+        java.util.List<String> hubsOtimizados = java.util.List.of("CNF", "BSB");
+        if (hubsOtimizados.contains(request.getDestino().toUpperCase()) &&
+                (horario.isAfter(LocalTime.of(10, 0)) && horario.isBefore(LocalTime.of(15, 0)))) {
+            score -= 0.10;
+            log.info("Fator Mitigante: Fluxo otimizado no destino em horário de baixa densidade.");
+        }
+
+        // 2º fator mitigante: Estabilidade Climática (Outono/Inverno)
+        if (mes >= 5 && mes <= 8) {
+            score -= 0.08;
+            log.info("Fator Mitigante: Período de maior estabilidade climática.");
+        }
+
 
         // Garante que a probabilidade fica entre 0.1 e 0.95
         return Math.max(0.1, Math.min(0.95, score));
