@@ -25,8 +25,8 @@ import java.time.LocalDateTime;
 public class FlightPredictionRequest {
 
     @NotBlank(message = "Companhia aérea é obrigatória")
-    @Schema(description = "Código IATA da companhia aérea (2 letras maiúsculas)", example = "AZ", minLength = 2, maxLength = 2)
-    @Pattern(regexp = "^[A-Z]{2}$", message = "O código da companhia aérea deve conter exatamente 2 letras maiúsculas (IATA)")
+    @Schema(description = "Código IATA da companhia aérea (2 caracteres alfanuméricos maiúsculos)", example = "G3", minLength = 2, maxLength = 2)
+    @Pattern(regexp = "^[A-Z0-9]{2}$", message = "O código da companhia aérea deve conter exatamente 2 caracteres alfanuméricos maiúsculos (IATA)")
     @JsonProperty("companhia")
     private String companhia;
 
