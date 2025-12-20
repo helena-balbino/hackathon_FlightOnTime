@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.Map;
 
 /**
  * Serviço responsável pela lógica de previsão de voos
@@ -30,7 +31,26 @@ public class FlightPredictionService {
      * @param request Dados do voo
      * @return Previsão com status e probabilidade
      */
+
+    private static final Map<String, String> AEROPORTO_MAP = Map.ofEntries(
+            Map.entry("GRU", "SBGR"), Map.entry("CGH", "SBSP"), Map.entry("BSB", "SBBR"),
+            Map.entry("GIG", "SBGL"), Map.entry("SDU", "SBRJ"), Map.entry("CNF", "SBCF"),
+            Map.entry("POA", "SBPA"), Map.entry("CWB", "SBCT"), Map.entry("MAO", "SBEG"),
+            Map.entry("VCP", "SBKP"), Map.entry("AFL", "SBAT"), Map.entry("CMG", "SBCR"),
+            Map.entry("CKS", "SBCJ"), Map.entry("JDO", "SBJU"), Map.entry("POO", "SBPC")
+    );
+
+    private static final Map<String, String> COMPANHIA_MAP = Map.ofEntries(
+            Map.entry("AZ", "AZU"), Map.entry("G3", "GLO"), Map.entry("LA", "TAM"),
+            Map.entry("AC", "ACN"), Map.entry("UX", "AEA"), Map.entry("AF", "AFR"),
+            Map.entry("AM", "AMX"), Map.entry("AR", "ARG"), Map.entry("AV", "AVA")
+    );
+
     public FlightPredictionResponse predict(FlightPredictionRequest request) {
+        String origemIcao = AEROPORTO_MAP.getOrDefault(request.getOrigem().toUpperCase(), request.getOrigem());
+        String destinoIcao = AEROPORTO_MAP.getOrDefault(request.getDestino().toUpperCase(), request.getDestino());
+        String companhiaIcao = COMPANHIA_MAP.getOrDefault(request.getCompanhia().toUpperCase(), request.getCompanhia());
+
         log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})",
                 request.getOrigem(), 
                 request.getDestino(), 
@@ -38,7 +58,7 @@ public class FlightPredictionService {
 
 
         // MOCK: Lógica simples baseada em heurísticas
-        double probabilidadeAtraso = calcularProbabilidadeMock(request);
+        double probabilidadeAtraso = calcularProbabilidadeMock(request, origemIcao, destinoIcao, companhiaIcao);
         
         String previsao = probabilidadeAtraso > 0.5 ? "Atrasado" : "Pontual";
 
@@ -53,7 +73,7 @@ public class FlightPredictionService {
     /**
      * Calcula probabilidade mockada com base em heurísticas simples
      */
-    private double calcularProbabilidadeMock(FlightPredictionRequest request) {
+    private double calcularProbabilidadeMock(FlightPredictionRequest request, String origemIcao,  String destinoIcao, String companhiaIcao) {
         double score = 0.5; // Base neutra
 
         // Fator 1: Horário do voo
@@ -80,19 +100,22 @@ public class FlightPredictionService {
         }
 
         // Fator 4: Companhias específicas (simulação)
-        if ("AZ".equalsIgnoreCase(request.getCompanhia())) {
-            score -= 0.05; // Companhia com boa pontualidade
-        } else if ("G3".equalsIgnoreCase(request.getCompanhia())) {
-            score += 0.05; // Companhia com boa pontualidade
-        } else if ("LA".equalsIgnoreCase(request.getCompanhia())) {
-            score -= 0.05; // Companhia com boa pontualidade
+        if ("AZU".equalsIgnoreCase(companhiaIcao)) {
+            score -= 0.05; // boa reputação
+        } else if ("GLO".equalsIgnoreCase(companhiaIcao)) {
+            score += 0.05; // má reputação
+        } else if ("TAM".equalsIgnoreCase(companhiaIcao)) {
+            score -= 0.05; // boa reputação
+        } else if ("ACN".equalsIgnoreCase(companhiaIcao)) {
+            score += 0.05; // má reputação
+        } else if ("AFR".equalsIgnoreCase(companhiaIcao)) {
+            score -= 0.05; // boa reputação
         }
 
-        // Fator 5: Datas Críticas (Ex: Natal/Ano Novo/carnaval)
+        // Fator 5: Datas Críticas (Ex: Natal/Ano Novo/)
         int dia = request.getDataPartida().getDayOfMonth();
         int mes = request.getDataPartida().getMonthValue();
 
-        // Natal / Ano Novo
         if (mes == 12 && dia >= 20) {
             score += 0.20;
 
@@ -112,20 +135,20 @@ public class FlightPredictionService {
         }
 
         // Fator 7: Aeroportos que devido ao fluxo elevado tendem a ter maior atraso
-        java.util.List<String> hubs = java.util.Arrays.asList("GRU", "CGH", "BSB", "SDU");
-        if (hubs.contains(request.getOrigem().toUpperCase())) {
+        java.util.List<String> hubs = java.util.Arrays.asList("SBGR", "SBSP", "SBRJ", "SBGL", "SBBR");
+        if (hubs.contains(origemIcao.toUpperCase())) {
             score += 0.18;
             log.info("Alerta Hub: Origem em aeroporto de alta densidade detectada.");
         }
 
 
         // ------------------------------- Fatores Mitigantes --------------------------------
-        // Pra o nosso mock não ficar tão pessimista e acabar tendendo muito ao atraso vou adicionar alguns casos onde o voo tende a ser mais pontual pesquisei alguns fatores na IA
+        // Pra o nosso mock não ficar tão pessimista e acabar tendendo muito ao atraso vou adicionar alguns casos onde o voo tende a ser mais pontual
 
 
         // 1º fator mitigante: Aeroportos maiores e com baixo fluxo
-        java.util.List<String> hubsOtimizados = java.util.List.of("CNF", "BSB");
-        if (hubsOtimizados.contains(request.getDestino().toUpperCase()) &&
+        java.util.List<String> hubsOtimizados = java.util.List.of("SBJU", "SBCJ", "SBCR", "SBAT", "SBPC");
+        if (hubsOtimizados.contains(destinoIcao.toUpperCase()) &&
                 (horario.isAfter(LocalTime.of(10, 0)) && horario.isBefore(LocalTime.of(15, 0)))) {
             score -= 0.10;
             log.info("Fator Mitigante: Fluxo otimizado no destino em horário de baixa densidade.");
