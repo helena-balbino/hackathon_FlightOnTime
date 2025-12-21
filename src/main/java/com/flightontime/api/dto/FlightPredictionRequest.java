@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,17 +25,20 @@ import java.time.LocalDateTime;
 public class FlightPredictionRequest {
 
     @NotBlank(message = "Companhia aérea é obrigatória")
-    @Schema(description = "Código IATA da companhia aérea", example = "AZ")
+    @Schema(description = "Código IATA da companhia aérea (2 caracteres alfanuméricos maiúsculos)", example = "G3", minLength = 2, maxLength = 2)
+    @Pattern(regexp = "^[A-Z0-9]{2}$", message = "O código da companhia aérea deve conter exatamente 2 caracteres alfanuméricos maiúsculos (IATA)")
     @JsonProperty("companhia")
     private String companhia;
 
     @NotBlank(message = "Aeroporto de origem é obrigatório")
-    @Schema(description = "Código IATA do aeroporto de origem", example = "GIG")
+    @Schema(description = "Código IATA do aeroporto de origem (3 letras maiúsculas)", example = "GIG", minLength = 3, maxLength = 3)
+    @Pattern(regexp = "^[A-Z]{3}$", message = "A origem deve ser um código IATA válido, composto por exatamente 3 letras maiúsculas")
     @JsonProperty("origem")
     private String origem;
 
     @NotBlank(message = "Aeroporto de destino é obrigatório")
-    @Schema(description = "Código IATA do aeroporto de destino", example = "GRU")
+    @Schema(description = "Código IATA do aeroporto de destino (3 letras maiúsculas)", example = "GRU", minLength = 3, maxLength = 3)
+    @Pattern(regexp = "^[A-Z]{3}$", message = "O destino deve ser um código IATA válido, composto por exatamente 3 letras maiúsculas")
     @JsonProperty("destino")
     private String destino;
 
