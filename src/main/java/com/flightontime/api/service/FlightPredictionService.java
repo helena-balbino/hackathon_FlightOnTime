@@ -1,79 +1,147 @@
 package com.flightontime.api.service;
 
+import com.flightontime.api.client.PythonPredictionClient;
 import com.flightontime.api.dto.FlightPredictionRequest;
 import com.flightontime.api.dto.FlightPredictionResponse;
+import com.flightontime.api.dto.PythonPredictionRequest;
+import com.flightontime.api.dto.PythonPredictionResponse;
+import com.flightontime.api.mapper.AirlineCodeMapper;
+import com.flightontime.api.mapper.AirportCodeMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Serviço responsável pela lógica de previsão de voos
  * 
- * SEMANA 1: Retorna dados MOCKADOS para permitir desenvolvimento independente
- * SEMANA 2: Será implementada a integração com o microserviço Python do time DS
+ * SEMANA 1: Retorna dados MOCKADOS ✅
+ * SEMANA 2: Integração com microserviço Python ⬅️ ESTAMOS AQUI!
+ * 
+ * ESTRATÉGIA DE TRANSIÇÃO:
+ * - Flag (use-mock-service) controla mock vs Python
+ * - Permite testar a integração gradualmente
+ * - Rollback rápido se Python tiver problemas
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class FlightPredictionService {
+
+    private final AirportCodeMapper airportMapper;
+    private final AirlineCodeMapper airlineMapper;
+    private final PythonPredictionClient pythonClient;
+
+    @Value("${prediction.service.use-mock:true}")
+    private boolean useMockService;
 
     /**
      * Realiza a previsão de atraso do voo
      * 
-     * MOCK STRATEGY (Semana 1):
-     * - Voos de manhã (06h-12h): maior probabilidade de serem pontuais
-     * - Voos à tarde/noite (12h-23h): maior probabilidade de atraso
-     * - Fins de semana: maior probabilidade de serem pontuais
-     * - Voos de curta distância (<500km): maior probabilidade de serem pontuais
+     * FLUXO:
+     * 1. Converte códigos IATA → ICAO (Squad A)
+     * 2. Monta DTO para Python
+     * 3. Chama serviço Python OU mock (Squad B)
+     * 4. Retorna resposta para o Controller
      * 
-     * @param request Dados do voo
+     * @param request Dados do voo (formato IATA)
      * @return Previsão com status e probabilidade
      */
-
-    private static final Map<String, String> AEROPORTO_MAP = Map.ofEntries(
-            Map.entry("GRU", "SBGR"), Map.entry("CGH", "SBSP"), Map.entry("BSB", "SBBR"),
-            Map.entry("GIG", "SBGL"), Map.entry("SDU", "SBRJ"), Map.entry("CNF", "SBCF"),
-            Map.entry("POA", "SBPA"), Map.entry("CWB", "SBCT"), Map.entry("MAO", "SBEG"),
-            Map.entry("VCP", "SBKP"), Map.entry("AFL", "SBAT"), Map.entry("CMG", "SBCR"),
-            Map.entry("CKS", "SBCJ"), Map.entry("JDO", "SBJU"), Map.entry("POO", "SBPC")
-    );
-
-    private static final Map<String, String> COMPANHIA_MAP = Map.ofEntries(
-            Map.entry("AZ", "AZU"), Map.entry("G3", "GLO"), Map.entry("LA", "TAM"),
-            Map.entry("AC", "ACN"), Map.entry("UX", "AEA"), Map.entry("AF", "AFR"),
-            Map.entry("AM", "AMX"), Map.entry("AR", "ARG"), Map.entry("AV", "AVA")
-    );
-
     public FlightPredictionResponse predict(FlightPredictionRequest request) {
-        String origemIcao = AEROPORTO_MAP.getOrDefault(request.getOrigem().toUpperCase(), request.getOrigem());
-        String destinoIcao = AEROPORTO_MAP.getOrDefault(request.getDestino().toUpperCase(), request.getDestino());
-        String companhiaIcao = COMPANHIA_MAP.getOrDefault(request.getCompanhia().toUpperCase(), request.getCompanhia());
-
         log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})",
                 request.getOrigem(), 
                 request.getDestino(), 
                 request.getCompanhia());
 
+        // ETAPA 1: Conversão IATA → ICAO (Squad A)
+        String origemIcao = airportMapper.toIcao(request.getOrigem());
+        String destinoIcao = airportMapper.toIcao(request.getDestino());
+        String companhiaIcao = airlineMapper.toIcao(request.getCompanhia());
 
-        // MOCK: Lógica simples baseada em heurísticas
+        log.debug("📝 Conversões: {} → {}, {} → {}, {} → {}",
+                request.getOrigem(), origemIcao,
+                request.getDestino(), destinoIcao,
+                request.getCompanhia(), companhiaIcao);
+
+        // ETAPA 2: Decidir entre Mock ou Python
+        if (useMockService) {
+            log.info("🎭 MODO MOCK ativado - Usando lógica local");
+            return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
+        } else {
+            log.info("🐍 MODO PYTHON ativado - Chamando microserviço");
+            return predictWithPython(request, origemIcao, destinoIcao, companhiaIcao);
+        }
+    }
+
+    /**
+     * Previsão usando o microserviço Python (SEMANA 2)
+     */
+    private FlightPredictionResponse predictWithPython(
+            FlightPredictionRequest request,
+            String origemIcao,
+            String destinoIcao,
+            String companhiaIcao) {
+
+        try {
+            // Monta DTO para Python
+            PythonPredictionRequest pythonRequest = PythonPredictionRequest.builder()
+                    .companhiaIcao(companhiaIcao)
+                    .origemIcao(origemIcao)
+                    .destinoIcao(destinoIcao)
+                    .dataPartida(request.getDataPartida().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                    .distanciaKm(request.getDistanciaKm())
+                    .build();
+
+            // Chama serviço Python (Squad B)
+            PythonPredictionResponse pythonResponse = pythonClient.getPrediction(pythonRequest);
+
+            // Converte resposta Python → resposta API
+            return FlightPredictionResponse.builder()
+                    .previsao(pythonResponse.getPrevisao())
+                    .probabilidade(pythonResponse.getProbabilidade())
+                    .build();
+
+        } catch (Exception ex) {
+            log.error("❌ Erro ao chamar Python. Fallback para MOCK.", ex);
+            // Fallback: se Python falhar, usa mock
+            return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
+        }
+    }
+
+    /**
+     * Previsão usando lógica mockada (SEMANA 1)
+     * Mantida como fallback de segurança
+     */
+    private FlightPredictionResponse predictWithMock(
+            FlightPredictionRequest request,
+            String origemIcao,
+            String destinoIcao,
+            String companhiaIcao) {
+
         double probabilidadeAtraso = calcularProbabilidadeMock(request, origemIcao, destinoIcao, companhiaIcao);
-        
         String previsao = probabilidadeAtraso > 0.5 ? "Atrasado" : "Pontual";
 
-        log.info("✅ Previsão: {} (Probabilidade: {})", previsao, Math.round(probabilidadeAtraso * 100.0) / 100.0);
+        log.info("✅ Previsão MOCK: {} (Probabilidade: {})", previsao, Math.round(probabilidadeAtraso * 100.0) / 100.0);
 
         return FlightPredictionResponse.builder()
                 .previsao(previsao)
-                .probabilidade(Math.round(probabilidadeAtraso * 100.0) / 100.0) // Arredonda para 2 casas
+                .probabilidade(Math.round(probabilidadeAtraso * 100.0) / 100.0)
                 .build();
     }
 
     /**
      * Calcula probabilidade mockada com base em heurísticas simples
+     * (Mantido da Semana 1)
      */
-    private double calcularProbabilidadeMock(FlightPredictionRequest request, String origemIcao,  String destinoIcao, String companhiaIcao) {
+    private double calcularProbabilidadeMock(
+            FlightPredictionRequest request,
+            String origemIcao,
+            String destinoIcao,
+            String companhiaIcao) {
         double score = 0.5; // Base neutra
 
         // Fator 1: Horário do voo

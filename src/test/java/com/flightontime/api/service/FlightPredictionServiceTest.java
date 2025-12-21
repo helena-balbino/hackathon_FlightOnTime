@@ -1,28 +1,64 @@
 package com.flightontime.api.service;
 
+import com.flightontime.api.client.PythonPredictionClient;
 import com.flightontime.api.dto.FlightPredictionRequest;
 import com.flightontime.api.dto.FlightPredictionResponse;
+import com.flightontime.api.mapper.AirlineCodeMapper;
+import com.flightontime.api.mapper.AirportCodeMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 /**
  * Testes unitários para FlightPredictionService
  * 
  * EQUIPE RESPONSÁVEL: Dupla "Business Logic & Mock"
+ * 
+ * ATUALIZADO SEMANA 2: Adicionados mocks para as dependências
  */
 @DisplayName("FlightPredictionService - Testes Unitários")
+@ExtendWith(MockitoExtension.class)
 class FlightPredictionServiceTest {
+
+    @Mock
+    private AirportCodeMapper airportMapper;
+    
+    @Mock
+    private AirlineCodeMapper airlineMapper;
+    
+    @Mock
+    private PythonPredictionClient pythonClient;
 
     private FlightPredictionService service;
 
     @BeforeEach
     void setUp() {
-        service = new FlightPredictionService();
+        service = new FlightPredictionService(airportMapper, airlineMapper, pythonClient);
+        
+        // Configura o serviço para usar MOCK (não chamar Python)
+        ReflectionTestUtils.setField(service, "useMockService", true);
+        
+        // Configura comportamento padrão dos mappers
+        when(airportMapper.toIcao(anyString())).thenAnswer(invocation -> {
+            String iata = invocation.getArgument(0);
+            // Simula conversão básica: retorna o próprio código em uppercase
+            return "SB" + iata.toUpperCase();
+        });
+        
+        when(airlineMapper.toIcao(anyString())).thenAnswer(invocation -> {
+            String iata = invocation.getArgument(0);
+            return iata.toUpperCase() + "A";
+        });
     }
 
     @Test
