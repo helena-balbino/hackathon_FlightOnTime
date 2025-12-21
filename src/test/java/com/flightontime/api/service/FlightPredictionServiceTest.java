@@ -111,4 +111,57 @@ class FlightPredictionServiceTest {
             "Previsão deve ser 'Pontual' ou 'Atrasado'"
         );
     }
+
+    @Test
+    @DisplayName("Deve validar agravante de datas festicas e tempestade (Fatores 5 e 6)")
+    void deveValidarCenarioNatalETempestade() {
+        // Arrange: 24 de Dezembro, 19h (janela de chuva), saindo de Guarulhos
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("LA")
+                .origem("SBGR")
+                .destino("REC")
+                .dataPartida(LocalDateTime.of(2025, 12, 24, 19, 0))
+                .distanciaKm(2100)
+                .build();
+
+        FlightPredictionResponse response = service.predict(request);
+
+        assertTrue(response.getProbabilidade() > 0.6, "Cenário crítico deve ter probabilidade alta");
+        assertEquals("Atrasado", response.getPrevisao());
+    }
+
+    @Test
+    @DisplayName("Deve validar fator mitigante de Primeira Onda e Inverno (Fatores 9 e 11)")
+    void deveValidarCenarioFavoravelPrimeiraOnda() {
+        // Arrange: Junho (estável), 07h da manhã (primeira onda), Companhia AZ
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("AZ")
+                .origem("VIX")
+                .destino("SDU")
+                .dataPartida(LocalDateTime.of(2025, 6, 15, 7, 0))
+                .distanciaKm(420)
+                .build();
+
+        FlightPredictionResponse response = service.predict(request);
+
+        assertTrue(response.getProbabilidade() < 0.4, "Cenário favorável deve ter probabilidade baixa");
+        assertEquals("Pontual", response.getPrevisao());
+    }
+
+    @Test
+    @DisplayName("Deve validar o teto máximo de probabilidade (Segurança)")
+    void deveGarantirLimiteMaximo() {
+        // Arrange: Forçando o máximo de agravantes possíveis
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("G3")
+                .origem("SBGR") // Hub
+                .destino("SSA") // Turístico
+                .dataPartida(LocalDateTime.of(2025, 12, 22, 18, 30)) // Natal + Tempestade + Sexta
+                .distanciaKm(1500)
+                .build();
+
+        FlightPredictionResponse response = service.predict(request);
+
+        assertTrue(response.getProbabilidade() <= 0.98);
+    }
 }
