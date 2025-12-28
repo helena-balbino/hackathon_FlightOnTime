@@ -43,3 +43,23 @@ mvnw.cmd
 ### OS ###
 .DS_Store
 Thumbs.db
+
+## Python / Data Science ###
+.venv/
+venv/
+env/
+ENV/
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+.ipynb_checkpoints/
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+
+# Virtual environment local configs
+.python-version
