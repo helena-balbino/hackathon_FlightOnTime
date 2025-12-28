@@ -39,6 +39,18 @@ public class FlightPredictionService {
     @Value("${prediction.service.use-mock:true}")
     private boolean useMockService;
 
+    /*
+     * Verifica a saúde do microserviço de IA (Python).
+     * Este método atua como um 'health check delegate'. Ele permite que a camada de
+     * Controller monitore a disponibilidade do motor de integração sem precisar
+     * conhecer os detalhes técnicos do client HTTP.
+     * @return true se o serviço Python responder ao endpoint de health
+     */
+    public boolean isPythonHealthy() {
+        return pythonClient.isHealthy(); // Aqui usamos a variável 'pythonClient' minúscula que o Mateus injetou
+    }
+
+
     /**
      * Realiza a previsão de atraso do voo
      * 
@@ -106,8 +118,9 @@ public class FlightPredictionService {
                     .build();
 
         } catch (Exception ex) {
-            log.error("❌ Erro ao chamar Python. Fallback para MOCK.", ex);
-            // Fallback: se Python falhar, usa mock
+            log.error("❌ Falha crítica na integração Python: {}", ex.getMessage());
+
+            log.info("🛡️ Ativando Fallback de segurança (Lógica Mock)");
             return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
         }
     }
