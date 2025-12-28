@@ -15,11 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controller responsável pelo endpoint de previsão de voos
- * 
- * EQUIPE RESPONSÁVEL: Dupla "Gateway & Validação"
- */
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -29,43 +28,24 @@ public class FlightController {
 
     private final FlightPredictionService predictionService;
 
-    @Operation(
-        summary = "Prever atraso de voo",
-        description = "Recebe informações do voo e retorna a previsão de atraso com probabilidade associada"
-    )
-    @ApiResponses(value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Previsão realizada com sucesso",
-            content = @Content(schema = @Schema(implementation = FlightPredictionResponse.class))
-        ),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Dados inválidos fornecidos"
-        ),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Erro interno do servidor"
-        )
-    })
     @PostMapping("/predict")
     public ResponseEntity<FlightPredictionResponse> predict(
             @Valid @RequestBody FlightPredictionRequest request) {
-        
-        log.info("📨 Recebida requisição de previsão: {} → {}", 
-                request.getOrigem(), 
-                request.getDestino());
-
+        log.info("Recebida requisição de previsão: {} → {}", request.getOrigem(), request.getDestino());
         FlightPredictionResponse response = predictionService.predict(request);
-
-        log.info("📤 Retornando previsão: {}", response.getPrevisao());
-        
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/health")
-    @Operation(summary = "Verificar saúde da API", description = "Endpoint para health check")
-    public ResponseEntity<String> health() {
-        return ResponseEntity.ok("FlightOnTime API is running! ✈️");
+    @Operation(summary = "Verificar saúde da API", description = "Endpoint para health check detalhado")
+    public ResponseEntity<Map<String, Object>> health() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "UP");
+        response.put("message", "FlightOnTime API is running! ✈️");
+        response.put("java_version", System.getProperty("java.version"));
+        response.put("timestamp", LocalDateTime.now());
+
+        log.info("Health check acessado: Status UP");
+        return ResponseEntity.ok(response);
     }
 }
