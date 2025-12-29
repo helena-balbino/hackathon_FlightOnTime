@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.flightontime.api.validation.FlightRouteValid;
+import jakarta.validation.constraints.Future;
 
 import java.time.LocalDateTime;
 
@@ -45,7 +46,8 @@ public class FlightPredictionRequest {
     private String destino;
 
     @NotNull(message = "Data de partida é obrigatória")
-    @Schema(description = "Data e hora de partida do voo", example = "2025-11-10T14:30:00")
+    @Future(message = "Data de partida deve ser futura")
+    @Schema(description = "Data e hora de partida do voo deve ser futura(Data considerada no fuso do servidor)", example = "2025-11-10T14:30:00")
     @JsonProperty("data_partida")
     private LocalDateTime dataPartida;
 
