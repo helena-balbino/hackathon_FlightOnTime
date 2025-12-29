@@ -1,5 +1,6 @@
 package com.flightontime.api.controller;
 
+import com.flightontime.api.client.PythonPredictionClient;
 import com.flightontime.api.dto.FlightPredictionRequest;
 import com.flightontime.api.dto.FlightPredictionResponse;
 import com.flightontime.api.service.FlightPredictionService;
@@ -15,6 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Controller responsável pelo endpoint de previsão de voos
  * 
@@ -28,6 +33,7 @@ import org.springframework.web.bind.annotation.*;
 public class FlightController {
 
     private final FlightPredictionService predictionService;
+    private final PythonPredictionClient pythonClient;
 
     @Operation(
         summary = "Prever atraso de voo",
@@ -63,9 +69,15 @@ public class FlightController {
         return ResponseEntity.ok(response);
     }
 
+    // refinando endpoint health
     @GetMapping("/health")
-    @Operation(summary = "Verificar saúde da API", description = "Endpoint para health check")
-    public ResponseEntity<String> health() {
-        return ResponseEntity.ok("FlightOnTime API is running! ✈️");
+    public ResponseEntity<Map<String, Object>> health() {
+        boolean pythonUp = predictionService.isPythonHealthy();
+
+        return ResponseEntity.ok(Map.of(
+                "status", "UP",
+                "pythonService", pythonUp ? "UP" : "DOWN",
+                "timestamp", LocalDateTime.now()
+        ));
     }
 }
