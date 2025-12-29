@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.flightontime.api.validation.FlightRouteValid;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
+@FlightRouteValid
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Dados do voo para previsão de atraso")
