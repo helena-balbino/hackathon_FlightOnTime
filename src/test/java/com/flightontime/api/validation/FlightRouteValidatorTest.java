@@ -5,7 +5,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,12 +16,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class FlightRouteValidatorTest {
 
-    private Validator validator;
+    private static ValidatorFactory factory;
+    private static Validator validator;
 
-    @BeforeEach
-    void setup() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    @BeforeAll
+    static void setup() {
+        factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+    }
+
+    @AfterAll
+    static void tearDown() {
+        factory.close();
     }
 
     @Test
