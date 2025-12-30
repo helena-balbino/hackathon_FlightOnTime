@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework. web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java. util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,7 +32,6 @@ import java.util.Map;
 public class FlightController {
 
     private final FlightPredictionService predictionService;
-    private final PythonPredictionClient pythonClient;
 
     @Operation(
         summary = "Prever atraso de voo",
