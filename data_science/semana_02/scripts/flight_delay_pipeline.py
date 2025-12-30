@@ -599,28 +599,58 @@ def treinar_classificador(
         except Exception:
             resultados["roc_auc"] = None
 
-    return {"pipeline": pipe, "metrics": resultados}
+    return {
+        "pipeline": pipe, 
+        "metrics": resultados,
+        "y_test": y_test.to_numpy(),
+        "y_pred": y_pred
+        }
 
+# ----------------------------------------------------------------------------#
+# Avaliação do Modelo
+# ----------------------------------------------------------------------------#
 
+def gerar_relatorio_classificacao(
+    metrics: dict,
+    y_true=None,
+    y_pred=None,
+    title: str = "Matriz de Confusão",
+    normalize: bool = False
+):
+    from sklearn.metrics import classification_report
+    print("\n MÉTRICAS ")
+    for k, v in metrics.items():
+        if k not in ["confusion_matrix", "classification_report"]:
+            print(f"{k}: {v}")
 
+    if y_true is not None and y_pred is not None:
+        print("\n RELATÓRIO DE CLASSIFICAÇÃO ")
+        print(classification_report(y_true, y_pred))
 
+    else:
+        print(
+            "\n Relatório de Classificação não pôde ser regenerado "
+            "(y_true / y_pred não fornecidos)."
+        )
 
+    # ===== MATRIZ DE CONFUSÃO =====
+    import numpy as np
+    from sklearn.metrics import ConfusionMatrixDisplay
+    import matplotlib.pyplot as plt
 
+    cm = np.array(metrics["confusion_matrix"])
 
+    if normalize:
+        cm = cm / cm.sum(axis=1, keepdims=True)
 
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    disp.plot(
+        cmap="Blues",
+        values_format=".2f" if normalize else "d"
+    )
 
-
-
-
-
-
-
-
-
-
-
-
-
+    plt.title(title)
+    plt.show()
 
 
 
@@ -706,8 +736,17 @@ def criar_app_fastapi(modelo_path: str):
 
         # previsão
         pred = int(pipeline.predict(x)[0])
+        label_map = {
+            0: "no_praso",
+            1: "atrasado",
+        }
 
-        resp = {"prediction": pred}
+        label = label_map.get(pred, str(pred))
+
+        resp = {
+            "prediction": pred,
+            "label": label
+                }
 
         if hasattr(pipeline, "predict_proba"):
             resp["proba_atraso"] = float(pipeline.predict_proba(x)[0, 1])

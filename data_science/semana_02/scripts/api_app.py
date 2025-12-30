@@ -1,4 +1,7 @@
-import data_science.semana_02.scripts.flight_delay_pipeline as scr
+import flight_delay_pipeline as scr
+from pathlib import Path
 
-MODEL_PATH = "artifacts/flightontime_pipeline.pkl"
-app = scr.criar_app_fastapi(MODEL_PATH)
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "flightontime_pipeline.pkl"
+
+app = scr.criar_app_fastapi(str(MODEL_PATH))
