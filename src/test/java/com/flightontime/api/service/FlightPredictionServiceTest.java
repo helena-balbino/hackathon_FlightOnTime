@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -16,6 +18,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -199,5 +202,58 @@ class FlightPredictionServiceTest {
         FlightPredictionResponse response = service.predict(request);
 
         assertTrue(response.getProbabilidade() <= 0.98);
+    }
+
+    @Test
+    @DisplayName("Squad B - Deve ativar Fallback (Mock) quando o serviço Python falhar")
+    void deveAtivarFallbackQuandoPythonFalhar() {
+        // 1. Configuramos o serviço para tentar usar o Python (useMockService = false)
+        org.springframework.test.util.ReflectionTestUtils.setField(service, "useMockService", false);
+
+        // 2. Criamos um request de teste
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("G3")
+                .origem("GRU")
+                .destino("GIG")
+                .dataPartida(LocalDateTime.of(2025, 11, 20, 14, 30))
+                .distanciaKm(350)
+                .build();
+
+        // 3. Simulamos uma falha crítica no Python (ex: Timeout ou Conexão Recusada)
+        when(pythonClient.getPrediction(any())).thenThrow(new RuntimeException("Python Service Offline"));
+
+        // Executamos a chamada. O service deve capturar o erro e chamar o predictWithMock internamente
+        FlightPredictionResponse response = service.predict(request);
+
+        assertNotNull(response, "A resposta não deve ser nula mesmo com erro no Python");
+        assertTrue(response.getProbabilidade() > 0, "Deve retornar uma probabilidade calculada pelo Mock");
+
+        // Verificamos se o client do Python foi realmente consultado antes de falhar
+        org.mockito.Mockito.verify(pythonClient, org.mockito.Mockito.atLeastOnce()).getPrediction(any());
+
+        System.out.println("✅ Squad B: Fallback validado! O sistema usou o Mock após erro no Python.");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "G3, GRU, GIG, 350",
+            "AD, VCP, CNF, 450",
+            "LA, GRU, MAO, 2800",
+            "G3, CGH, SDU, 400"
+    })
+    @DisplayName("Squad B & A - Teste de Massa de Dados (Sucesso)")
+    void deveProcessarMassaDeDadosComSucesso(String cia, String ori, String dest, int dist) {
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia(cia)
+                .origem(ori)
+                .destino(dest)
+                .dataPartida(LocalDateTime.now().plusDays(1))
+                .distanciaKm(dist)
+                .build();
+
+        FlightPredictionResponse response = service.predict(request);
+
+        assertNotNull(response);
+        System.out.println("✅ Teste de Massa: " + cia + " voando de " + ori + " para " + dest + " - Status: " + response.getPrevisao());
     }
 }
