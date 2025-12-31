@@ -44,6 +44,7 @@ class FlightPredictionRequestFutureTest {
                 validator.validate(request);
 
         assertThat(violations)
+                .hasSize(1)
                 .anyMatch(v ->
                         v.getPropertyPath().toString().equals("dataPartida") &&
                                 v.getMessage().equals("Data de partida deve ser futura")
@@ -56,7 +57,7 @@ class FlightPredictionRequestFutureTest {
                 .companhia("G3")
                 .origem("GIG")
                 .destino("GRU")
-                .dataPartida(LocalDateTime.now().plusHours(2))
+                .dataPartida(LocalDateTime.now().plusDays(1))
                 .distanciaKm(350)
                 .build();
 
@@ -64,5 +65,75 @@ class FlightPredictionRequestFutureTest {
                 validator.validate(request);
 
         assertThat(violations).isEmpty();
+    }
+
+    @Test
+    void deveFalharQuandoDataPartidaForNoPresente() {
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("G3")
+                .origem("GIG")
+                .destino("GRU")
+                .dataPartida(LocalDateTime.now().minusNanos(1))
+                .distanciaKm(350)
+                .build();
+
+        Set<ConstraintViolation<FlightPredictionRequest>> violations =
+                validator.validate(request);
+
+        assertThat(violations)
+                .isNotEmpty()
+                .anyMatch(v -> v.getPropertyPath().toString().equals("dataPartida"));
+    }
+
+    @Test
+    void deveFalharQuandoCamposObrigatoriosForemNulos() {
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .build();
+
+        Set<ConstraintViolation<FlightPredictionRequest>> violations =
+                validator.validate(request);
+
+        assertThat(violations)
+                .hasSizeGreaterThan(0)
+                .anyMatch(v -> v.getPropertyPath().toString().equals("companhia") ||
+                              v.getPropertyPath().toString().equals("origem") ||
+                              v.getPropertyPath().toString().equals("destino") ||
+                              v.getPropertyPath().toString().equals("dataPartida"));
+    }
+
+    @Test
+    void deveFalharQuandoDistanciaForNegativa() {
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("G3")
+                .origem("GIG")
+                .destino("GRU")
+                .dataPartida(LocalDateTime.now().plusDays(1))
+                .distanciaKm(-100)
+                .build();
+
+        Set<ConstraintViolation<FlightPredictionRequest>> violations =
+                validator.validate(request);
+
+        assertThat(violations)
+                .isNotEmpty()
+                .anyMatch(v -> v.getPropertyPath().toString().equals("distanciaKm"));
+    }
+
+    @Test
+    void deveFalharQuandoDistanciaForZero() {
+        FlightPredictionRequest request = FlightPredictionRequest.builder()
+                .companhia("G3")
+                .origem("GIG")
+                .destino("GRU")
+                .dataPartida(LocalDateTime.now().plusDays(1))
+                .distanciaKm(0)
+                .build();
+
+        Set<ConstraintViolation<FlightPredictionRequest>> violations =
+                validator.validate(request);
+
+        assertThat(violations)
+                .isNotEmpty()
+                .anyMatch(v -> v.getPropertyPath().toString().equals("distanciaKm"));
     }
 }
