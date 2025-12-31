@@ -73,7 +73,7 @@ class FlightPredictionRequestFutureTest {
                 .companhia("G3")
                 .origem("GIG")
                 .destino("GRU")
-                .dataPartida(LocalDateTime.now())
+                .dataPartida(LocalDateTime.now().minusNanos(1))
                 .distanciaKm(350)
                 .build();
 
