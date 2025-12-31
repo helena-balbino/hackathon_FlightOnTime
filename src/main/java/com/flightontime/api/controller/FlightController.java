@@ -3,7 +3,7 @@ package com.flightontime.api.controller;
 import com.flightontime.api.client.PythonPredictionClient;
 import com.flightontime.api.dto.FlightPredictionRequest;
 import com.flightontime.api.dto.FlightPredictionResponse;
-import com.flightontime.api. service.FlightPredictionService;
+import com.flightontime.api.service.FlightPredictionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework. web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -62,7 +62,7 @@ public class FlightController {
 
         FlightPredictionResponse response = predictionService.predict(request);
 
-        log.info("📤 Retornando previsão: {}", response. getPrevisao());
+        log.info("📤 Retornando previsão: {}", response.getPrevisao());
         
         return ResponseEntity.ok(response);
     }
