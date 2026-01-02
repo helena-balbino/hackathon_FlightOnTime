@@ -22,7 +22,8 @@ public class ErrorResponse {
 
     @Schema(description = "Timestamp do erro", example = "2025-12-16T10:30:00")
     @JsonProperty("timestamp")
-    private LocalDateTime timestamp;
+    @Builder.Default
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     @Schema(description = "Código HTTP do erro", example = "400")
     @JsonProperty("status")

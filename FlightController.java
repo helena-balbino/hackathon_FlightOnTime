@@ -17,12 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Controller responsável pelo endpoint de previsão de voos
  * 
- * EQUIPE RESPONSÁVEL:  Dupla "Gateway & Validação"
+ * EQUIPE RESPONSÁVEL: Dupla "Gateway & Validação"
  */
 @Slf4j
 @RestController
@@ -32,6 +33,7 @@ import java.util.Map;
 public class FlightController {
 
     private final FlightPredictionService predictionService;
+    private final PythonPredictionClient pythonClient;
 
     @Operation(
         summary = "Prever atraso de voo",
@@ -56,7 +58,7 @@ public class FlightController {
     public ResponseEntity<FlightPredictionResponse> predict(
             @Valid @RequestBody FlightPredictionRequest request) {
         
-        log.info("📨 Recebida requisição de previsão:  {} → {}", 
+        log.info("📨 Recebida requisição de previsão: {} → {}", 
                 request.getOrigem(), 
                 request.getDestino());
 
