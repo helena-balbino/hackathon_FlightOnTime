@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,21 +55,16 @@ public class GlobalExceptionHandler {
      * Trata erros genéricos não mapeados
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(
-            Exception ex,
-            HttpServletRequest request) {
-        
-        log.error("❌ Erro não tratado: ", ex);
-
-        ErrorResponse errorResponse = ErrorResponse.builder()
+    public ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
+        log.error("❌ Erro inesperado: ", ex);
+        ErrorResponse error = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error("Internal Server Error")
-                .message("Ocorreu um erro interno no servidor")
+                .message("Ocorreu um erro interno inesperado")
                 .path(request.getRequestURI())
                 .build();
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
     /**
@@ -109,5 +105,23 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    /**
+     * Trata erro 404 - Recurso não encontrado
+     * Captura quando o Spring não encontra um handler para a URL
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(NoHandlerFoundException ex, HttpServletRequest request) {
+        log.warn("⚠️ Recurso não encontrado: {}", request.getRequestURI());
+        
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error("Not Found")
+                .message("O recurso solicitado não foi encontrado")
+                .path(request.getRequestURI())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 }
