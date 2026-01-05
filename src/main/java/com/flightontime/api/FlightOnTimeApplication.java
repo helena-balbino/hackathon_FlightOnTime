@@ -17,8 +17,8 @@ public class FlightOnTimeApplication {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
-                .setConnectTimeout(Duration.ofSeconds(3)) // Tempo para abrir a conexão
-                .setReadTimeout(Duration.ofSeconds(5))    // Tempo para esperar o Python responder
+                .setConnectTimeout(Duration.ofSeconds(5))  // Aumentado de 3s para 5s
+                .setReadTimeout(Duration.ofSeconds(10))    // Aumentado de 5s para 10s (predições de ML podem demorar)
                 .build();
     }
 }
