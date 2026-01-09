@@ -117,6 +117,11 @@ public class FlightPredictionService {
                     .probabilidade(pythonResponse.getProbabilidade())
                     .build();
 
+        } catch (org.springframework.web.client.ResourceAccessException ex) {
+            log.error("⏳ TIMEOUT CRÍTICO: O microserviço Python demorou mais de 10 segundos ou está offline.");
+            log.info("🛡️ RESILIÊNCIA: Acionando Fallback Automático (Lógica Mock) para garantir resposta.");
+            return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
+
         } catch (Exception ex) {
             log.error("❌ Falha crítica na integração Python: {}", ex.getMessage());
 

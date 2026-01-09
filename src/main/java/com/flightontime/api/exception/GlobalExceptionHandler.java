@@ -124,4 +124,25 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
+    /**
+     * Trata erros de comunicação/timeout com o microserviço Python
+     */
+    @ExceptionHandler(org.springframework.web.client.ResourceAccessException.class)
+    public ResponseEntity<ErrorResponse> handleResourceAccessException(
+            org.springframework.web.client.ResourceAccessException ex,
+            HttpServletRequest request) {
+
+        log.error("⏳ ALERTA DE RESILIÊNCIA: O motor de IA Python demorou demais ou está offline.");
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .error("Service Unavailable")
+                .message("O sistema de previsão em tempo real está lento. A API operará em modo de contingência (Fallback).")
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse);
+    }
 }
