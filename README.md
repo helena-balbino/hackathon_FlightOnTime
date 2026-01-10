@@ -25,48 +25,101 @@ Este projeto foi desenvolvido durante o hackathon seguindo a estratégia **Walki
 - 🔄 Integração com microserviço Python (Data Science)
 - 🔄 Substituir mock por chamadas reais via WebClient/RestTemplate
 
-### Semanas 3-6
-- 🔜 Tratamento de falhas e resiliência
-- 🔜 Testes unitários e de integração
-- 🔜 Dockerização
+### Semanas 3-6 ✅
+- ✅ Tratamento de falhas e resiliência
+- ✅ Testes unitários e de integração
+- ✅ **Dockerização completa**
 - 🔜 Deploy na Oracle Cloud
 
 ---
 
 ## 🚀 Como Executar
 
-### Pré-requisitos
+### Opção 1: Docker (Recomendado) 🐳
 
+**Pré-requisitos:**
+- Docker Desktop 20.10+
+- Docker Compose 2.0+
+
+**Execução rápida:**
+```bash
+# Iniciar toda a aplicação (Backend + Python API)
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Parar
+docker-compose down
+```
+
+**Script interativo (Windows):**
+```powershell
+.\docker-deploy.ps1
+```
+
+**Script interativo (Linux/Mac):**
+```bash
+chmod +x docker-deploy.sh
+./docker-deploy.sh
+```
+
+**Acessar:**
+- Backend: http://localhost:8080
+- Python API: http://localhost:5000
+- Swagger: http://localhost:8080/swagger-ui.html
+
+📖 **Documentação completa**: [DOCKER_GUIDE.md](DOCKER_GUIDE.md)
+
+---
+
+### Opção 2: Execução Local (Desenvolvimento)
+
+**Pré-requisitos:**
 - **Java 17** ou superior
 - **Maven 3.8+**
-- **IDE** ( VS Code com extensões Java)
+- **Python 3.11+** (para API Python)
+- **IDE** (VS Code com extensões Java)
 
-### Passo a Passo
-
-1. **Clone o repositório**
+**Backend Java:**
 ```bash
+# Clone o repositório
 git clone <url-do-repositorio>
 cd flight-ontime-api
-```
 
-2. **Compile o projeto**
-```bash
+# Compile o projeto
 mvn clean install
-```
 
-3. **Execute a aplicação**
-```bash
+# Execute a aplicação
 mvn spring-boot:run
+
+# Acesse Swagger
+# http://localhost:8080/swagger-ui.html
 ```
 
-4. **Acesse a documentação Swagger**
-```
-http://localhost:8080/swagger-ui.html
-```
-
-5. **Teste o endpoint de health check**
+**API Python (opcional):**
 ```bash
+cd data_science/semana_02/scripts
+
+# Criar ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+# Instalar dependências
+pip install -r requirements.txt
+
+# Executar API
+uvicorn java_integration_api:app --host 0.0.0.0 --port 5000
+```
+
+**Health Checks:**
+```bash
+# Backend Java
 curl http://localhost:8080/api/health
+
+# Python API
+curl http://localhost:5000/health
 ```
 
 ---
@@ -209,13 +262,40 @@ Cliente → Backend Java → Microserviço Python → Modelo ML → Backend Java
 
 ## 🛠️ Próximos Passos
 
-- [ ] Implementar WebClient para chamada ao microserviço Python
-- [ ] Adicionar configuração de timeout e retry
-- [ ] Implementar circuit breaker (Resilience4j)
-- [ ] Criar testes unitários (JUnit 5 + Mockito)
-- [ ] Adicionar Docker e docker-compose
+- [x] Implementar WebClient para chamada ao microserviço Python
+- [x] Adicionar configuração de timeout e retry
+- [x] Implementar circuit breaker (Resilience4j)
+- [x] Criar testes unitários (JUnit 5 + Mockito)
+- [x] **Adicionar Docker e docker-compose**
 - [ ] Configurar CI/CD (GitHub Actions)
 - [ ] Deploy na Oracle Cloud
+
+---
+
+## 🐳 Docker
+
+A aplicação está completamente containerizada com:
+
+### Arquivos Docker
+- **`Dockerfile`** - Backend Java (multi-stage build)
+- **`data_science/semana_02/scripts/Dockerfile`** - API Python
+- **`docker-compose.yml`** - Orquestração completa
+- **`DOCKER_GUIDE.md`** - Documentação detalhada
+
+### Características
+✅ Multi-stage build (otimização de tamanho)  
+✅ Usuários não-root (segurança)  
+✅ Health checks configurados  
+✅ Network isolada para comunicação  
+✅ Scripts de automação (PowerShell e Bash)  
+✅ Hot reload para desenvolvimento  
+
+### Quick Start
+```bash
+docker-compose up -d
+```
+
+**Mais detalhes**: [DOCKER_GUIDE.md](DOCKER_GUIDE.md)
 
 ---
 

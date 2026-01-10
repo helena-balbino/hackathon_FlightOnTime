@@ -1,6 +1,5 @@
 package com.flightontime.api.controller;
 
-import com.flightontime.api.client.PythonPredictionClient;
 import com.flightontime.api.dto.FlightPredictionRequest;
 import com.flightontime.api.dto.FlightPredictionResponse;
 import com.flightontime.api.service.FlightPredictionService;

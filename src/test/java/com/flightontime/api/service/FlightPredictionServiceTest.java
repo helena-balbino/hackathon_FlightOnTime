@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Testes unitários para FlightPredictionService
@@ -208,7 +208,7 @@ class FlightPredictionServiceTest {
     @DisplayName("Squad B - Deve ativar Fallback (Mock) quando o serviço Python falhar")
     void deveAtivarFallbackQuandoPythonFalhar() {
         // 1. Configuramos o serviço para tentar usar o Python (useMockService = false)
-        org.springframework.test.util.ReflectionTestUtils.setField(service, "useMockService", false);
+        ReflectionTestUtils.setField(service, "useMockService", false);
 
         // 2. Criamos um request de teste
         FlightPredictionRequest request = FlightPredictionRequest.builder()
@@ -229,7 +229,7 @@ class FlightPredictionServiceTest {
         assertTrue(response.getProbabilidade() > 0, "Deve retornar uma probabilidade calculada pelo Mock");
 
         // Verificamos se o client do Python foi realmente consultado antes de falhar
-        org.mockito.Mockito.verify(pythonClient, org.mockito.Mockito.atLeastOnce()).getPrediction(any());
+        verify(pythonClient, atLeastOnce()).getPrediction(any());
 
         System.out.println("✅ Squad B: Fallback validado! O sistema usou o Mock após erro no Python.");
     }
