@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Tag(name = "Flight Prediction", description = "API para previsão de atrasos em voos")
 public class FlightController {
@@ -66,15 +66,22 @@ public class FlightController {
         return ResponseEntity.ok(response);
     }
 
-    // refinando endpoint health
+    @Operation(summary = "Health check detalhado", description = "Verifica status do backend e serviços dependentes")
     @GetMapping("/health")
     public ResponseEntity<Map<String, Object>> health() {
         boolean pythonUp = predictionService.isPythonHealthy();
+        long uptime = java.lang.management.ManagementFactory.getRuntimeMXBean().getUptime();
 
         return ResponseEntity.ok(Map.of(
                 "status", "UP",
-                "pythonService", pythonUp ? "UP" : "DOWN",
-                "timestamp", LocalDateTime.now()
+                "version", "1.0.0",
+                "timestamp", LocalDateTime.now(),
+                "uptime_ms", uptime,
+                "services", Map.of(
+                        "java_backend", "UP",
+                        "python_ml", pythonUp ? "UP" : "DOWN"
+                ),
+                "environment", System.getProperty("spring.profiles.active", "default")
         ));
     }
 }

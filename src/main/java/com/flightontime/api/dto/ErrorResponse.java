@@ -37,7 +37,7 @@ public class ErrorResponse {
     @JsonProperty("message")
     private String message;
 
-    @Schema(description = "Caminho da requisição que gerou o erro", example = "/api/predict")
+    @Schema(description = "Caminho da requisição que gerou o erro", example = "/api/v1/predict")
     @JsonProperty("path")
     private String path;
 

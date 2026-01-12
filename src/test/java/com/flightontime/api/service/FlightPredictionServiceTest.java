@@ -208,6 +208,7 @@ class FlightPredictionServiceTest {
     @DisplayName("Squad B - Deve ativar Fallback (Mock) quando o serviço Python falhar")
     void deveAtivarFallbackQuandoPythonFalhar() {
         // 1. Configuramos o serviço para tentar usar o Python (useMockService = false)
+        assertNotNull(service);
         ReflectionTestUtils.setField(service, "useMockService", false);
 
         // 2. Criamos um request de teste

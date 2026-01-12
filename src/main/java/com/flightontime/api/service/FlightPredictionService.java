@@ -10,6 +10,7 @@ import com.flightontime.api.mapper.AirportCodeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -19,8 +20,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * Serviço responsável pela lógica de previsão de voos
  * 
- * SEMANA 1: Retorna dados MOCKADOS ✅
- * SEMANA 2: Integração com microserviço Python ⬅️ ESTAMOS AQUI!
+ * FUNCIONALIDADES:
+ * - Cache de previsões (reduz latência)
+ * - Integração com microserviço Python
+ * - Fallback automático para mock em caso de falha
  * 
  * ESTRATÉGIA DE TRANSIÇÃO:
  * - Flag (use-mock-service) controla mock vs Python
@@ -53,16 +56,18 @@ public class FlightPredictionService {
 
     /**
      * Realiza a previsão de atraso do voo
+     * Resultado é cacheado para melhorar performance
      * 
      * FLUXO:
-     * 1. Converte códigos IATA → ICAO (Squad A)
-     * 2. Monta DTO para Python
-     * 3. Chama serviço Python OU mock (Squad B)
-     * 4. Retorna resposta para o Controller
+     * 1. Verifica cache (retorna se já existe)
+     * 2. Converte códigos IATA → ICAO
+     * 3. Chama serviço Python OU mock
+     * 4. Armazena no cache e retorna
      * 
      * @param request Dados do voo (formato IATA)
      * @return Previsão com status e probabilidade
      */
+    @Cacheable(value = "predictions", key = "#request.hashCode()")
     public FlightPredictionResponse predict(FlightPredictionRequest request) {
         log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})",
                 request.getOrigem(), 

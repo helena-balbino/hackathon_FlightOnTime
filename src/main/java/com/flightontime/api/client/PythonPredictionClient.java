@@ -8,7 +8,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -18,12 +22,13 @@ import org.springframework.web.client.RestTemplate;
  * 
  * RESPONSABILIDADE:
  * - Fazer requisição POST para o serviço Python
+ * - Retry automático com backoff exponencial
  * - Converter exceções HTTP em exceções de negócio
  * - Logar requisições/respostas para debugging
  * 
  * TECH STACK:
  * - RestTemplate (Spring Framework)
- * - Alternativa moderna: WebClient (considerar para versões futuras)
+ * - Spring Retry para resiliência
  */
 @Slf4j
 @Component
@@ -48,11 +53,17 @@ public class PythonPredictionClient {
 
     /**
      * Faz requisição POST para o serviço Python
+     * Com retry automático em caso de falha transitória
      * 
      * @param request Dados do voo em formato ICAO
      * @return Previsão retornada pelo modelo de ML
-     * @throws RuntimeException se houver erro na comunicação
+     * @throws RestClientException se houver erro na comunicação (após todas as tentativas)
      */
+    @Retryable(
+        retryFor = {RestClientException.class},
+        maxAttempts = 3,
+        backoff = @Backoff(delay = 1000, multiplier = 2)
+    )
     public PythonPredictionResponse getPrediction(PythonPredictionRequest request) {
         try {
             log.info("📤 Enviando requisição para Python: {} → {}",
@@ -82,9 +93,22 @@ public class PythonPredictionClient {
             return body;
 
         } catch (Exception ex) {
-            log.error("❌ Erro ao comunicar com o serviço Python: {}", ex.getMessage(), ex);
-            throw new RuntimeException("Falha na comunicação com o serviço de previsão: " + ex.getMessage(), ex);
+            log.error("❌ Erro ao comunicar com o serviço Python: {}", ex.getMessage());
+            throw new RestClientException("Falha na comunicação com o serviço de previsão", ex);
         }
+    }
+
+    /**
+     * Método de recuperação quando todas as tentativas de retry falharem
+     * 
+     * @param ex Exceção que causou a falha
+     * @param request Request original
+     * @return null (indica falha para o service usar fallback)
+     */
+    @Recover
+    public PythonPredictionResponse recover(RestClientException ex, PythonPredictionRequest request) {
+        log.error("⚠️ Todas as {} tentativas de conexão falharam. Fallback será acionado.", 3);
+        throw ex; // Re-lança para o Service tratar com mock
     }
 
     /**
