@@ -1,0 +1,3068 @@
+[
+  {
+    "icao": "EGLL",
+    "iata": "LHR",
+    "name": "London Heathrow Airport",
+    "country": "United Kingdom",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KLAX",
+    "iata": "LAX",
+    "name": "Los Angeles International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KORD",
+    "iata": "ORD",
+    "name": "Chicago O'Hare International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KJFK",
+    "iata": "JFK",
+    "name": "John F. Kennedy International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KATL",
+    "iata": "ATL",
+    "name": "Hartsfield Jackson Atlanta International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LFPG",
+    "iata": "CDG",
+    "name": "Charles de Gaulle International Airport",
+    "country": "France",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EHAM",
+    "iata": "AMS",
+    "name": "Amsterdam Airport Schiphol",
+    "country": "Netherlands",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EDDF",
+    "iata": "FRA",
+    "name": "Frankfurt Airport",
+    "country": "Germany",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KDFW",
+    "iata": "DFW",
+    "name": "Dallas Fort Worth International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KEWR",
+    "iata": "EWR",
+    "name": "Newark Liberty International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KLAS",
+    "iata": "LAS",
+    "name": "Harry Reid International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KMCO",
+    "iata": "MCO",
+    "name": "Orlando International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KIAD",
+    "iata": "IAD",
+    "name": "Washington Dulles International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KMIA",
+    "iata": "MIA",
+    "name": "Miami International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KSEA",
+    "iata": "SEA",
+    "name": "Seattle–Tacoma International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KBOS",
+    "iata": "BOS",
+    "name": "General Edward Lawrence Logan International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KPHX",
+    "iata": "PHX",
+    "name": "Phoenix Sky Harbor International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KPHL",
+    "iata": "PHL",
+    "name": "Philadelphia International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EGKK",
+    "iata": "LGW",
+    "name": "London Gatwick Airport",
+    "country": "United Kingdom",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KIAH",
+    "iata": "IAH",
+    "name": "George Bush Intercontinental Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYYZ",
+    "iata": "YYZ",
+    "name": "Toronto Pearson International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LEBL",
+    "iata": "BCN",
+    "name": "Josep Tarradellas Barcelona-El Prat Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EDDM",
+    "iata": "MUC",
+    "name": "Munich Airport",
+    "country": "Germany",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LIRF",
+    "iata": "FCO",
+    "name": "Rome–Fiumicino Leonardo da Vinci International Airport",
+    "country": "Italy",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LEMD",
+    "iata": "MAD",
+    "name": "Adolfo Suárez Madrid–Barajas Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KFLL",
+    "iata": "FLL",
+    "name": "Fort Lauderdale Hollywood International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EKCH",
+    "iata": "CPH",
+    "name": "Copenhagen Kastrup Airport",
+    "country": "Denmark",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LSZH",
+    "iata": "ZRH",
+    "name": "Zürich Airport",
+    "country": "Switzerland",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EBBR",
+    "iata": "BRU",
+    "name": "Brussels Airport",
+    "country": "Belgium",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KSTL",
+    "iata": "STL",
+    "name": "St. Louis Lambert International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OMDB",
+    "iata": "DXB",
+    "name": "Dubai International Airport",
+    "country": "United Arab Emirates",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EGSS",
+    "iata": "STN",
+    "name": "London Stansted Airport",
+    "country": "United Kingdom",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LOWW",
+    "iata": "VIE",
+    "name": "Vienna International Airport",
+    "country": "Austria",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYVR",
+    "iata": "YVR",
+    "name": "Vancouver International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KMSY",
+    "iata": "MSY",
+    "name": "Louis Armstrong New Orleans International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LPPT",
+    "iata": "LIS",
+    "name": "Lisbon Humberto Delgado Airport",
+    "country": "Portugal",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYUL",
+    "iata": "YUL",
+    "name": "Montreal / Pierre Elliott Trudeau International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "VHHH",
+    "iata": "HKG",
+    "name": "Hong Kong International Airport",
+    "country": "Hong Kong",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KCVG",
+    "iata": "CVG",
+    "name": "Cincinnati Northern Kentucky International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "VTBS",
+    "iata": "BKK",
+    "name": "Suvarnabhumi Airport",
+    "country": "Thailand",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMUN",
+    "iata": "CUN",
+    "name": "Cancún International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LIMC",
+    "iata": "MXP",
+    "name": "Milan Malpensa International Airport",
+    "country": "Italy",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KAUS",
+    "iata": "AUS",
+    "name": "Austin Bergstrom International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "BIKF",
+    "iata": "KEF",
+    "name": "Keflavik International Airport",
+    "country": "Iceland",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LTBA",
+    "iata": "ISL",
+    "name": "İstanbul Atatürk Airport",
+    "country": "Turkey",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "ZBAA",
+    "iata": "PEK",
+    "name": "Beijing Capital International Airport",
+    "country": "China",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KMEM",
+    "iata": "MEM",
+    "name": "Memphis International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LFPO",
+    "iata": "ORY",
+    "name": "Paris-Orly Airport",
+    "country": "France",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EPWA",
+    "iata": "WAW",
+    "name": "Warsaw Chopin Airport",
+    "country": "Poland",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMMX",
+    "iata": "MEX",
+    "name": "Benito Juárez International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "RKSI",
+    "iata": "ICN",
+    "name": "Incheon International Airport",
+    "country": "South Korea",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LEMG",
+    "iata": "AGP",
+    "name": "Málaga-Costa del Sol Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "TJSJ",
+    "iata": "SJU",
+    "name": "Luis Munoz Marin International Airport",
+    "country": "Puerto Rico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FAOR",
+    "iata": "JNB",
+    "name": "O.R. Tambo International Airport",
+    "country": "South Africa",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBGR",
+    "iata": "GRU",
+    "name": "Guarulhos - Governador André Franco Montoro International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "PANC",
+    "iata": "ANC",
+    "name": "Ted Stevens Anchorage International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EDDK",
+    "iata": "CGN",
+    "name": "Cologne Bonn Airport",
+    "country": "Germany",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SAEZ",
+    "iata": "EZE",
+    "name": "Ezeiza International Airport - Ministro Pistarini",
+    "country": "Argentina",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OTHH",
+    "iata": "DOH",
+    "name": "Hamad International Airport",
+    "country": "Qatar",
+    "type": "large_airport"
+  },
+  {
+    "icao": "HECA",
+    "iata": "CAI",
+    "name": "Cairo International Airport",
+    "country": "Egypt",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OMAA",
+    "iata": "AUH",
+    "name": "Zayed International Airport",
+    "country": "United Arab Emirates",
+    "type": "large_airport"
+  },
+  {
+    "icao": "YBBN",
+    "iata": "BNE",
+    "name": "Brisbane International Airport",
+    "country": "Australia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SPJC",
+    "iata": "LIM",
+    "name": "Jorge Chávez International Airport",
+    "country": "Peru",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EGBB",
+    "iata": "BHX",
+    "name": "Birmingham Airport",
+    "country": "United Kingdom",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBGL",
+    "iata": "GIG",
+    "name": "Rio Galeão – Tom Jobim International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GCLP",
+    "iata": "LPA",
+    "name": "Gran Canaria Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SCEL",
+    "iata": "SCL",
+    "name": "Comodoro Arturo Merino Benítez International Airport",
+    "country": "Chile",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FACT",
+    "iata": "CPT",
+    "name": "Cape Town International Airport",
+    "country": "South Africa",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LPPR",
+    "iata": "OPO",
+    "name": "Francisco de Sá Carneiro Airport",
+    "country": "Portugal",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MPTO",
+    "iata": "PTY",
+    "name": "Tocumen International Airport",
+    "country": "Panama",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MROC",
+    "iata": "SJO",
+    "name": "Juan Santamaría International Airport",
+    "country": "Costa Rica",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GCTS",
+    "iata": "TFS",
+    "name": "Tenerife Sur Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LTFM",
+    "iata": "IST",
+    "name": "İstanbul Airport",
+    "country": "Turkey",
+    "type": "large_airport"
+  },
+  {
+    "icao": "HKJK",
+    "iata": "NBO",
+    "name": "Jomo Kenyatta International Airport",
+    "country": "Kenya",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LYBE",
+    "iata": "BEG",
+    "name": "Belgrade Nikola Tesla Airport",
+    "country": "Serbia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LFML",
+    "iata": "MRS",
+    "name": "Marseille Provence Airport",
+    "country": "France",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MDPC",
+    "iata": "PUJ",
+    "name": "Punta Cana International Airport",
+    "country": "Dominican Republic",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SKBO",
+    "iata": "BOG",
+    "name": "El Dorado International Airport",
+    "country": "Colombia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "VVNB",
+    "iata": "HAN",
+    "name": "Noi Bai International Airport",
+    "country": "Vietnam",
+    "type": "large_airport"
+  },
+  {
+    "icao": "ELLX",
+    "iata": "LUX",
+    "name": "Luxembourg-Findel International Airport",
+    "country": "Luxembourg",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MUHA",
+    "iata": "HAV",
+    "name": "José Martí International Airport",
+    "country": "Cuba",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KGSP",
+    "iata": "GSP",
+    "name": "Greenville-Spartanburg International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LEZL",
+    "iata": "SVQ",
+    "name": "Sevilla Airport",
+    "country": "Spain",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "GMMN",
+    "iata": "CMN",
+    "name": "Mohammed V International Airport",
+    "country": "Morocco",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SPZO",
+    "iata": "CUZ",
+    "name": "Alejandro Velasco Astete International Airport",
+    "country": "Peru",
+    "type": "large_airport"
+  },
+  {
+    "icao": "ZGGG",
+    "iata": "CAN",
+    "name": "Guangzhou Baiyun International Airport",
+    "country": "China",
+    "type": "large_airport"
+  },
+  {
+    "icao": "VCBI",
+    "iata": "CMB",
+    "name": "Bandaranaike International Colombo Airport",
+    "country": "Sri Lanka",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EDFH",
+    "iata": "HHN",
+    "name": "Frankfurt-Hahn Airport",
+    "country": "Germany",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYHM",
+    "iata": "YHM",
+    "name": "John C. Munro Hamilton International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OOMS",
+    "iata": "MCT",
+    "name": "Muscat International Airport",
+    "country": "Oman",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SABE",
+    "iata": "AEP",
+    "name": "Aeroparque Jorge Newbery",
+    "country": "Argentina",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EGNX",
+    "iata": "EMA",
+    "name": "East Midlands Airport",
+    "country": "United Kingdom",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KHSV",
+    "iata": "HSV",
+    "name": "Huntsville International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBSP",
+    "iata": "CGH",
+    "name": "Congonhas Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "HAAB",
+    "iata": "ADD",
+    "name": "Addis Ababa Bole International Airport",
+    "country": "Ethiopia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KGRB",
+    "iata": "GRB",
+    "name": "Austin Straubel International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "TNCA",
+    "iata": "AUA",
+    "name": "Queen Beatrix International Airport",
+    "country": "Aruba",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MDSD",
+    "iata": "SDQ",
+    "name": "Las Américas International Airport",
+    "country": "Dominican Republic",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMGL",
+    "iata": "GDL",
+    "name": "Guadalajara International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LIMF",
+    "iata": "TRN",
+    "name": "Turin Airport",
+    "country": "Italy",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYYT",
+    "iata": "YYT",
+    "name": "St. John's International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYMX",
+    "iata": "YMX",
+    "name": "Montreal Mirabel International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SEQM",
+    "iata": "UIO",
+    "name": "Mariscal Sucre International Airport",
+    "country": "Ecuador",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBRJ",
+    "iata": "SDU",
+    "name": "Santos Dumont Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "MGGT",
+    "iata": "GUA",
+    "name": "La Aurora International Airport",
+    "country": "Guatemala",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBBR",
+    "iata": "BSB",
+    "name": "Presidente Juscelino Kubitschek International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "TBPB",
+    "iata": "BGI",
+    "name": "Grantley Adams International Airport",
+    "country": "Barbados",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OEJN",
+    "iata": "JED",
+    "name": "King Abdulaziz International Airport",
+    "country": "Saudi Arabia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GCFV",
+    "iata": "FUE",
+    "name": "Fuerteventura Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LIPX",
+    "iata": "VRN",
+    "name": "Verona Villafranca Valerio Catullo Airport",
+    "country": "Italy",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SUMU",
+    "iata": "MVD",
+    "name": "Carrasco General Cesáreo L. Berisso International Airport",
+    "country": "Uruguay",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OLBA",
+    "iata": "BEY",
+    "name": "Beirut Rafic Hariri International Airport",
+    "country": "Lebanon",
+    "type": "large_airport"
+  },
+  {
+    "icao": "CYXX",
+    "iata": "YXX",
+    "name": "Abbotsford International Airport",
+    "country": "Canada",
+    "type": "large_airport"
+  },
+  {
+    "icao": "ZGSZ",
+    "iata": "SZX",
+    "name": "Shenzhen Bao'an International Airport",
+    "country": "China",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SVMI",
+    "iata": "CCS",
+    "name": "Maiquetía Simón Bolívar International Airport",
+    "country": "Venezuela",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SKCG",
+    "iata": "CTG",
+    "name": "Rafael Nuñez International Airport",
+    "country": "Colombia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "DGAA",
+    "iata": "ACC",
+    "name": "Kotoka International Airport",
+    "country": "Ghana",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KIWA",
+    "iata": "AZA",
+    "name": "Mesa Gateway Airport",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "MMMY",
+    "iata": "MTY",
+    "name": "Monterrey International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "ZUUU",
+    "iata": "CTU",
+    "name": "Chengdu Shuangliu International Airport",
+    "country": "China",
+    "type": "large_airport"
+  },
+  {
+    "icao": "VOHS",
+    "iata": "HYD",
+    "name": "Rajiv Gandhi International Airport",
+    "country": "India",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KNYL",
+    "iata": "YUM",
+    "name": "Yuma International Airport / Marine Corps Air Station Yuma",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SEGU",
+    "iata": "GYE",
+    "name": "José Joaquín de Olmedo International Airport",
+    "country": "Ecuador",
+    "type": "large_airport"
+  },
+  {
+    "icao": "UBBB",
+    "iata": "GYD",
+    "name": "Heydar Aliyev International Airport",
+    "country": "Azerbaijan",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MKJP",
+    "iata": "KIN",
+    "name": "Norman Manley International Airport",
+    "country": "Jamaica",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OERK",
+    "iata": "RUH",
+    "name": "King Khalid International Airport",
+    "country": "Saudi Arabia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "TNCC",
+    "iata": "CUR",
+    "name": "Hato International Airport",
+    "country": "Curaçao",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EDDP",
+    "iata": "LEJ",
+    "name": "Leipzig/Halle Airport",
+    "country": "Germany",
+    "type": "large_airport"
+  },
+  {
+    "icao": "TTPP",
+    "iata": "POS",
+    "name": "Piarco International Airport",
+    "country": "Trinidad and Tobago",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MNMG",
+    "iata": "MGA",
+    "name": "Augusto C. Sandino (Managua) International Airport",
+    "country": "Nicaragua",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SLLP",
+    "iata": "LPB",
+    "name": "El Alto International Airport",
+    "country": "Bolivia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBSV",
+    "iata": "SSA",
+    "name": "Deputado Luiz Eduardo Magalhães International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EHBK",
+    "iata": "MST",
+    "name": "Maastricht Aachen Airport",
+    "country": "Netherlands",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "DNMM",
+    "iata": "LOS",
+    "name": "Murtala Muhammed International Airport",
+    "country": "Nigeria",
+    "type": "large_airport"
+  },
+  {
+    "icao": "HKMO",
+    "iata": "MBA",
+    "name": "Moi International Airport",
+    "country": "Kenya",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MSLP",
+    "iata": "SAL",
+    "name": "El Salvador International Airport Saint Óscar Arnulfo Romero y Galdámez",
+    "country": "El Salvador",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMMD",
+    "iata": "MID",
+    "name": "Manuel Crescencio Rejón International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBPA",
+    "iata": "POA",
+    "name": "Salgado Filho International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "NTAA",
+    "iata": "PPT",
+    "name": "Fa'a'ā International Airport",
+    "country": "French Polynesia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SKRG",
+    "iata": "MDE",
+    "name": "Jose Maria Córdova International Airport",
+    "country": "Colombia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBKP",
+    "iata": "VCP",
+    "name": "Viracopos International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "KBRO",
+    "iata": "BRO",
+    "name": "Brownsville South Padre Island International Airport",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBRF",
+    "iata": "REC",
+    "name": "Recife/Guararapes - Gilberto Freyre International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SAWH",
+    "iata": "USH",
+    "name": "Ushuaia - Malvinas Argentinas International Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "LBBG",
+    "iata": "BOJ",
+    "name": "Burgas Airport",
+    "country": "Bulgaria",
+    "type": "large_airport"
+  },
+  {
+    "icao": "VMMC",
+    "iata": "MFM",
+    "name": "Macau International Airport",
+    "country": "Macau",
+    "type": "large_airport"
+  },
+  {
+    "icao": "TFFF",
+    "iata": "FDF",
+    "name": "Martinique Aimé Césaire International Airport",
+    "country": "Martinique",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OPKC",
+    "iata": "KHI",
+    "name": "Jinnah International Airport",
+    "country": "Pakistan",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FYWH",
+    "iata": "WDH",
+    "name": "Hosea Kutako International Airport",
+    "country": "Namibia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GMAD",
+    "iata": "AGA",
+    "name": "Al Massira Airport",
+    "country": "Morocco",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EBOS",
+    "iata": "OST",
+    "name": "Ostend-Bruges International Airport",
+    "country": "Belgium",
+    "type": "large_airport"
+  },
+  {
+    "icao": "UCFM",
+    "iata": "BSZ",
+    "name": "Manas International Airport",
+    "country": "Kyrgyzstan",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBFZ",
+    "iata": "FOR",
+    "name": "Pinto Martins International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBFI",
+    "iata": "IGU",
+    "name": "Cataratas International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "EBLG",
+    "iata": "LGG",
+    "name": "Liège Airport",
+    "country": "Belgium",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "OMSJ",
+    "iata": "SHJ",
+    "name": "Sharjah International Airport",
+    "country": "United Arab Emirates",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBCT",
+    "iata": "CWB",
+    "name": "Afonso Pena Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "KHRL",
+    "iata": "HRL",
+    "name": "Valley International Airport",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SLVR",
+    "iata": "VVI",
+    "name": "Viru Viru International Airport",
+    "country": "Bolivia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMCZ",
+    "iata": "CZM",
+    "name": "Cozumel International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "EGHH",
+    "iata": "BOH",
+    "name": "Bournemouth Airport",
+    "country": "United Kingdom",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SARI",
+    "iata": "IGR",
+    "name": "Cataratas Del Iguazú International Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "RJGG",
+    "iata": "NGO",
+    "name": "Chubu Centrair International Airport",
+    "country": "Japan",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBCF",
+    "iata": "CNF",
+    "name": "Tancredo Neves International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KLCK",
+    "iata": "LCK",
+    "name": "Rickenbacker International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KLRD",
+    "iata": "LRD",
+    "name": "Laredo International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MTPP",
+    "iata": "PAP",
+    "name": "Toussaint Louverture International Airport",
+    "country": "Haiti",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBEG",
+    "iata": "MAO",
+    "name": "Eduardo Gomes International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SCCI",
+    "iata": "PUQ",
+    "name": "President Carlos Ibáñez International Airport",
+    "country": "Chile",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBFL",
+    "iata": "FLN",
+    "name": "Hercílio Luz International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "DIAP",
+    "iata": "ABJ",
+    "name": "Félix-Houphouët-Boigny International Airport",
+    "country": "Côte d'Ivoire",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KAEX",
+    "iata": "AEX",
+    "name": "Alexandria International Airport",
+    "country": "United States",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KAFW",
+    "iata": "AFW",
+    "name": "Perot Field/Fort Worth Alliance Airport",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "GVAC",
+    "iata": "SID",
+    "name": "Amílcar Cabral International Airport",
+    "country": "Cape Verde",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SGAS",
+    "iata": "ASU",
+    "name": "Aeropuerto Internacional Silvio Pettirossi",
+    "country": "Paraguay",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FNLU",
+    "iata": "LAD",
+    "name": "Quatro de Fevereiro International Airport",
+    "country": "Angola",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FQMA",
+    "iata": "MPM",
+    "name": "Maputo Airport",
+    "country": "Mozambique",
+    "type": "large_airport"
+  },
+  {
+    "icao": "LIBR",
+    "iata": "BDS",
+    "name": "Brindisi Airport",
+    "country": "Italy",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SKCL",
+    "iata": "CLO",
+    "name": "Alfonso Bonilla Aragon International Airport",
+    "country": "Colombia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBCG",
+    "iata": "CGR",
+    "name": "Campo Grande Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "LEZG",
+    "iata": "ZAZ",
+    "name": "Zaragoza Airport",
+    "country": "Spain",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SAME",
+    "iata": "MDZ",
+    "name": "El Plumerillo Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SAZS",
+    "iata": "BRC",
+    "name": "San Carlos de Bariloche Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "OMDW",
+    "iata": "DWC",
+    "name": "Al Maktoum International Airport",
+    "country": "United Arab Emirates",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMTO",
+    "iata": "TLC",
+    "name": "Adolfo López Mateos International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBBE",
+    "iata": "BEL",
+    "name": "Val de Cans/Júlio Cezar Ribeiro International Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FTTJ",
+    "iata": "NDJ",
+    "name": "N'Djamena International Airport",
+    "country": "Chad",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SMJP",
+    "iata": "PBM",
+    "name": "Johan Adolf Pengel International Airport",
+    "country": "Suriname",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SCCF",
+    "iata": "CJC",
+    "name": "El Loa Airport",
+    "country": "Chile",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBLO",
+    "iata": "LDB",
+    "name": "Governor José Richa Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBSG",
+    "iata": "NAT",
+    "name": "São Gonçalo do Amarante - Governador Aluízio Alves International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SKBQ",
+    "iata": "BAQ",
+    "name": "Ernesto Cortissoz International Airport",
+    "country": "Colombia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "DBBB",
+    "iata": "COO",
+    "name": "Cotonou Cadjehoun International Airport",
+    "country": "Benin",
+    "type": "large_airport"
+  },
+  {
+    "icao": "MMQT",
+    "iata": "QRO",
+    "name": "Querétaro Intercontinental Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBVT",
+    "iata": "VIX",
+    "name": "Eurico de Aguiar Salles Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBGO",
+    "iata": "GYN",
+    "name": "Santa Genoveva Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "FCBB",
+    "iata": "BZV",
+    "name": "Maya-Maya International Airport",
+    "country": "Republic of the Congo",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SYCJ",
+    "iata": "GEO",
+    "name": "Cheddi Jagan International Airport",
+    "country": "Guyana",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SASA",
+    "iata": "SLA",
+    "name": "Martin Miguel De Guemes International Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "ZHCC",
+    "iata": "CGO",
+    "name": "Zhengzhou Xinzheng International Airport",
+    "country": "China",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBCY",
+    "iata": "CGB",
+    "name": "Marechal Rondon Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "KSUU",
+    "iata": "SUU",
+    "name": "Travis Air Force Base",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBRP",
+    "iata": "RAO",
+    "name": "Leite Lopes Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SACO",
+    "iata": "COR",
+    "name": "Ingeniero Aeronáutico Ambrosio L.V. Taravella International Airport",
+    "country": "Argentina",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GOBD",
+    "iata": "DSS",
+    "name": "Blaise Diagne International Airport",
+    "country": "Senegal",
+    "type": "large_airport"
+  },
+  {
+    "icao": "FOOL",
+    "iata": "LBV",
+    "name": "Libreville Leon M'ba International Airport",
+    "country": "Gabon",
+    "type": "large_airport"
+  },
+  {
+    "icao": "DXXX",
+    "iata": "LFW",
+    "name": "Lomé–Tokoin International Airport",
+    "country": "Togo",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBPS",
+    "iata": "BPS",
+    "name": "Porto Seguro Airport",
+    "country": "Brazil",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBBH",
+    "iata": "PLU",
+    "name": "Pampulha - Carlos Drummond de Andrade Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SCFA",
+    "iata": "ANF",
+    "name": "Andrés Sabella Gálvez International Airport",
+    "country": "Chile",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SLCB",
+    "iata": "CBB",
+    "name": "Jorge Wilsterman International Airport",
+    "country": "Bolivia",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SPQT",
+    "iata": "IQT",
+    "name": "Coronel FAP Francisco Secada Vignetta International Airport",
+    "country": "Peru",
+    "type": "large_airport"
+  },
+  {
+    "icao": "KDOV",
+    "iata": "DOV",
+    "name": "Dover Civil Air Terminal/Dover Air Force Base",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBSR",
+    "iata": "SJP",
+    "name": "Prof. Eribelto Manoel Reino State Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBSL",
+    "iata": "SLZ",
+    "name": "Marechal Cunha Machado International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "GFLL",
+    "iata": "FNA",
+    "name": "Lungi International Airport",
+    "country": "Sierra Leone",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SOCA",
+    "iata": "CAY",
+    "name": "Cayenne – Félix Eboué Airport",
+    "country": "French Guiana",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBNF",
+    "iata": "NVT",
+    "name": "Ministro Victor Konder International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "ESOE",
+    "iata": "ORB",
+    "name": "Örebro Airport",
+    "country": "Sweden",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBSJ",
+    "iata": "SJK",
+    "name": "Professor Urbano Ernesto Stumpf Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJD",
+    "iata": "QDV",
+    "name": "Comte. Rolim Adolfo Amaro–Jundiaí State Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "TJBQ",
+    "iata": "BQN",
+    "name": "Rafael Hernández International Airport",
+    "country": "Puerto Rico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GUCY",
+    "iata": "CKY",
+    "name": "Conakry International Airport",
+    "country": "Guinea",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBFN",
+    "iata": "FEN",
+    "name": "Fernando de Noronha Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJV",
+    "iata": "JOI",
+    "name": "Lauro Carneiro de Loyola Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "FZQA",
+    "iata": "FBM",
+    "name": "Lubumbashi International Airport",
+    "country": "Democratic Republic of the Congo",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMG",
+    "iata": "MGF",
+    "name": "Regional de Maringá - Sílvio Name Júnior Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJR",
+    "iata": "RRJ",
+    "name": "Jacarepaguá - Roberto Marinho Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "LKMT",
+    "iata": "OSR",
+    "name": "Leoš Janáček Airport Ostrava",
+    "country": "Czech Republic",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBPJ",
+    "iata": "PMW",
+    "name": "Brigadeiro Lysias Rodrigues Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBDN",
+    "iata": "PPB",
+    "name": "Presidente Prudente Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBAQ",
+    "iata": "AQA",
+    "name": "Araraquara Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SCDA",
+    "iata": "IQQ",
+    "name": "Diego Aracena Airport",
+    "country": "Chile",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMO",
+    "iata": "MCZ",
+    "name": "Zumbi dos Palmares Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "KMCF",
+    "iata": "MCF",
+    "name": "MacDill Air Force Base",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBUL",
+    "iata": "UDI",
+    "name": "Ten. Cel. Aviador César Bombonato Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SVMC",
+    "iata": "MAR",
+    "name": "La Chinita International Airport",
+    "country": "Venezuela",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SAAR",
+    "iata": "ROS",
+    "name": "Rosario Islas Malvinas International Airport",
+    "country": "Argentina",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBBV",
+    "iata": "BVB",
+    "name": "Atlas Brasil Cantanhede Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCX",
+    "iata": "CXJ",
+    "name": "Hugo Cantergiani Regional Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "LFOK",
+    "iata": "XCR",
+    "name": "Chalons Vatry airport",
+    "country": "France",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBML",
+    "iata": "MII",
+    "name": "Frank Miloye Milenkowichi–Marília State Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPL",
+    "iata": "PNZ",
+    "name": "Senador Nilo Coelho Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SLSU",
+    "iata": NaN,
+    "name": "Juana Azurduy de Padilla Air Force Base",
+    "country": "Bolivia",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SULS",
+    "iata": "PDP",
+    "name": "Capitan Corbeta CA Curbelo International Airport",
+    "country": "Uruguay",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "KNGU",
+    "iata": "NGU",
+    "name": "Norfolk Naval Station (Chambers Field)",
+    "country": "United States",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "MMSM",
+    "iata": "NLU",
+    "name": "General Felipe Ángeles International Airport",
+    "country": "Mexico",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBAU",
+    "iata": "ARU",
+    "name": "Araçatuba Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCH",
+    "iata": "XAP",
+    "name": "Serafin Enoss Bertaso Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJP",
+    "iata": "JPA",
+    "name": "Presidente Castro Pinto International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SCSE",
+    "iata": "LSC",
+    "name": "La Florida Airport",
+    "country": "Chile",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SKPE",
+    "iata": "PEI",
+    "name": "Matecaña International Airport",
+    "country": "Colombia",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBUR",
+    "iata": "UBA",
+    "name": "Mário de Almeida Franco Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SCIE",
+    "iata": "CCP",
+    "name": "Carriel Sur International Airport",
+    "country": "Chile",
+    "type": "large_airport"
+  },
+  {
+    "icao": "OMFJ",
+    "iata": "FJR",
+    "name": "Fujairah International Airport",
+    "country": "United Arab Emirates",
+    "type": "large_airport"
+  },
+  {
+    "icao": "GVBA",
+    "iata": "BVC",
+    "name": "Aristides Pereira International Airport",
+    "country": "Cape Verde",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBIL",
+    "iata": "IOS",
+    "name": "Bahia - Jorge Amado Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMQ",
+    "iata": "MCP",
+    "name": "Macapá - Alberto Alcolumbre International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SVPR",
+    "iata": "PZO",
+    "name": "General Manuel Carlos Piar International Airport",
+    "country": "Venezuela",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBAR",
+    "iata": "AJU",
+    "name": "Aracaju - Santa Maria International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBAE",
+    "iata": "JTC",
+    "name": "Bauru/Arealva–Moussa Nakhal Tobias State Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SDIM",
+    "iata": "JTN",
+    "name": "Itanhaém Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBCA",
+    "iata": "CAC",
+    "name": "Coronel Adalberto Mendes da Silva Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBRB",
+    "iata": "RBR",
+    "name": "Rio Branco-Plácido de Castro International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SAAV",
+    "iata": "SFN",
+    "name": "Sauce Viejo Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBSN",
+    "iata": "STM",
+    "name": "Santarém - Maestro Wilson Fonseca International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SVVA",
+    "iata": "VLN",
+    "name": "Arturo Michelena International Airport",
+    "country": "Venezuela",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SDTK",
+    "iata": "JPY",
+    "name": "Paraty Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBSI",
+    "iata": "OPS",
+    "name": "Presidente João Batista Figueiredo Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SARP",
+    "iata": "PSS",
+    "name": "Libertador Gral D Jose De San Martin Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBTE",
+    "iata": "THE",
+    "name": "Senador Petrônio Portela Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPK",
+    "iata": "PET",
+    "name": "João Simões Lopes Neto International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPG",
+    "iata": "PGZ",
+    "name": "Ponta Grossa Airport - Comandante Antonio Amilton Beraldo",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBRD",
+    "iata": "ROO",
+    "name": "Maestro Marinho Franco Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SDAG",
+    "iata": "GDR",
+    "name": "Angra dos Reis Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "LECN",
+    "iata": NaN,
+    "name": "Castellon de la Plana Aerodrome",
+    "country": "Spain",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SIMK",
+    "iata": "FRC",
+    "name": "Tenente Lund Pressoto Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWLC",
+    "iata": "RVD",
+    "name": "General Leite de Castro Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDSC",
+    "iata": "QSC",
+    "name": "Mário Pereira Lopes–São Carlos International Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDUB",
+    "iata": "UBT",
+    "name": "Ubatuba Gastão Madeira State Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBIZ",
+    "iata": "IMP",
+    "name": "Prefeito Renato Moreira Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SEMT",
+    "iata": "MEC",
+    "name": "Eloy Alfaro International Airport",
+    "country": "Ecuador",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMA",
+    "iata": "MAB",
+    "name": "João Correa da Rocha Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPP",
+    "iata": "PMG",
+    "name": "Ponta Porã Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPV",
+    "iata": "PVH",
+    "name": "Governador Jorge Teixeira de Oliveira Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SANT",
+    "iata": "TUC",
+    "name": "Teniente Benjamin Matienzo Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBNM",
+    "iata": "GEL",
+    "name": "Santo Ângelo Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBAT",
+    "iata": "AFL",
+    "name": "Piloto Osvaldo Marques Dias Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBAX",
+    "iata": "AAX",
+    "name": "Romeu Zema Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMS",
+    "iata": "MVF",
+    "name": "Dix-Sept Rosado Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCB",
+    "iata": "CFB",
+    "name": "Cabo Frio Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBTG",
+    "iata": "TJL",
+    "name": "Plínio Alarcom Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SGES",
+    "iata": "AGT",
+    "name": "Aeropuerto Internacional Guaraní",
+    "country": "Paraguay",
+    "type": "large_airport"
+  },
+  {
+    "icao": "SBKG",
+    "iata": "CPV",
+    "name": "Presidente João Suassuna Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SAZY",
+    "iata": "CPC",
+    "name": "Aviador C. Campos Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SKLT",
+    "iata": "LET",
+    "name": "Alfredo Vásquez Cobo International Airport",
+    "country": "Colombia",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMK",
+    "iata": "MOC",
+    "name": "Mário Ribeiro Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBSM",
+    "iata": "RIA",
+    "name": "Santa Maria Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBGV",
+    "iata": "GVR",
+    "name": "Coronel Altino Machado Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "OPST",
+    "iata": "SKT",
+    "name": "Sialkot International Airport",
+    "country": "Pakistan",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBVH",
+    "iata": "BVH",
+    "name": "Brigadeiro Camarão Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBVG",
+    "iata": "VAG",
+    "name": "Major Brigadeiro Trompowsky Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBDO",
+    "iata": "DOU",
+    "name": "Dourados Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSBL",
+    "iata": "BNU",
+    "name": "Blumenau Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNDV",
+    "iata": "DIQ",
+    "name": "Brigadeiro Cabral Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSSC",
+    "iata": "CSU",
+    "name": "Santa Cruz do Sul Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SVBM",
+    "iata": "BRM",
+    "name": "Barquisimeto International Airport",
+    "country": "Venezuela",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SARE",
+    "iata": "RES",
+    "name": "Resistencia International Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SANU",
+    "iata": "UAQ",
+    "name": "Domingo Faustino Sarmiento Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCJ",
+    "iata": "CKS",
+    "name": "Carajás Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBUF",
+    "iata": "PAV",
+    "name": "Paulo Afonso Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBUA",
+    "iata": "SJL",
+    "name": "São Gabriel da Cachoeira Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBTF",
+    "iata": "TFF",
+    "name": "Tefé Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBTU",
+    "iata": "TUR",
+    "name": "Tucuruí Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBUG",
+    "iata": "URG",
+    "name": "Rubem Berta Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCO",
+    "iata": "QNS",
+    "name": "Canoas Air Force Base",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJI",
+    "iata": "JPR",
+    "name": "Ji-Paraná Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBJU",
+    "iata": "JDO",
+    "name": "Orlando Bezerra de Menezes Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNBR",
+    "iata": "BRA",
+    "name": "Dom Ricardo Weberberger Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBCN",
+    "iata": "CLV",
+    "name": "Nelson Ribeiro Guimarães Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSCN",
+    "iata": "CEL",
+    "name": "Canela Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBJA",
+    "iata": "JJG",
+    "name": "Humberto Ghizzo Bortoluzzi Regional Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBPO",
+    "iata": "PTO",
+    "name": "Juvenal Loureiro Cardoso Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSOG",
+    "iata": "APX",
+    "name": "Arapongas Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNCL",
+    "iata": "MXQ",
+    "name": "Lorenzo Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNPD",
+    "iata": "POJ",
+    "name": "Patos de Minas Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBCP",
+    "iata": "CAW",
+    "name": "Bartolomeu Lisandro Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCR",
+    "iata": "CMG",
+    "name": "Corumbá International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBCZ",
+    "iata": "CZS",
+    "name": "Cruzeiro do Sul Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SVVG",
+    "iata": "VIG",
+    "name": "Juan Pablo Pérez Alfonso Airport",
+    "country": "Venezuela",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPF",
+    "iata": "PFB",
+    "name": "Lauro Kurtz Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SANE",
+    "iata": "SDE",
+    "name": "Vicecomodoro Angel D. La Paz Aragonés Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SVSO",
+    "iata": "STD",
+    "name": "Mayor Buenaventura Vivas International Airport",
+    "country": "Venezuela",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBHT",
+    "iata": "ATM",
+    "name": "Altamira Interstate Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJE",
+    "iata": "JJD",
+    "name": "Comandante Ariston Pessoa Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBIP",
+    "iata": "IPN",
+    "name": "Usiminas Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBIH",
+    "iata": "ITB",
+    "name": "Itaituba Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBZM",
+    "iata": "IZA",
+    "name": "Presidente Itamar Franco Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBTB",
+    "iata": "TMT",
+    "name": "Trombetas Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBPB",
+    "iata": "PHB",
+    "name": "Parnaíba - Prefeito Doutor João Silva Filho International Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBLE",
+    "iata": "LEC",
+    "name": "Coronel Horácio de Mattos Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSZR",
+    "iata": "SRA",
+    "name": "Luis Alberto Lehr Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBTD",
+    "iata": "TOW",
+    "name": "Toledo - Luiz Dalcanale Filho Municipal Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBDB",
+    "iata": "BYO",
+    "name": "Bonito Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBCD",
+    "iata": "CFC",
+    "name": "Doctor Carlos Alberto da Costa Neves Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSKW",
+    "iata": "OAL",
+    "name": "Cacoal Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNRU",
+    "iata": "CAU",
+    "name": "Caruaru Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDIY",
+    "iata": "FEC",
+    "name": "João Durval Carneiro Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBSO",
+    "iata": "SMT",
+    "name": "Adolino Bedin Regional Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSAP",
+    "iata": "APU",
+    "name": "Captain João Busse Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSER",
+    "iata": "ERM",
+    "name": "Erechim Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNGN",
+    "iata": "QGP",
+    "name": "Garanhuns Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNGI",
+    "iata": "GNM",
+    "name": "Guanambi Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SILC",
+    "iata": "LVR",
+    "name": "Municipal Bom Futuro Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNJM",
+    "iata": "JMA",
+    "name": "Aeroporto Elias Breder Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDNM",
+    "iata": "NVM",
+    "name": "Brigadeiro Eduardo Gomes Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWPI",
+    "iata": "PIN",
+    "name": "Parintins Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBME",
+    "iata": "MEA",
+    "name": "Macaé Benedito Lacerda Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMD",
+    "iata": "MEU",
+    "name": "Monte Dourado - Serra do Areão Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SWGN",
+    "iata": "AUX",
+    "name": "Araguaína Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBMY",
+    "iata": "MNX",
+    "name": "Manicoré Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SN6L",
+    "iata": "JSO",
+    "name": "Dr. Luciano de Arruda Coelho Regional Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBTT",
+    "iata": "TBT",
+    "name": "Tabatinga Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SANR",
+    "iata": "RHD",
+    "name": "Termas de Río Hondo international Airport",
+    "country": "Argentina",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBVC",
+    "iata": "VDC",
+    "name": "Glauber de Andrade Rocha Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBBG",
+    "iata": "BGX",
+    "name": "Comandante Gustavo Kraemer Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBBW",
+    "iata": "BPG",
+    "name": "Barra do Garças Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SNCP",
+    "iata": "EEA",
+    "name": "Planalto Serrano Regional Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SNLN",
+    "iata": "LHN",
+    "name": "Linhares Municipal Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBOI",
+    "iata": "OYK",
+    "name": "Oiapoque Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SBJH",
+    "iata": "JHF",
+    "name": "São Paulo Catarina Executive Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SWBC",
+    "iata": "BAZ",
+    "name": "Barcelos Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWBR",
+    "iata": "RBB",
+    "name": "Borba Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNVS",
+    "iata": "BVS",
+    "name": "Breves Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWCA",
+    "iata": "CAF",
+    "name": "Carauari Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSFB",
+    "iata": "FBE",
+    "name": "Paulo Abdala Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSGY",
+    "iata": "GGJ",
+    "name": "Guaíra Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNGA",
+    "iata": "GUZ",
+    "name": "Guarapari Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNSM",
+    "iata": "OPP",
+    "name": "Salinópolis Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNHS",
+    "iata": "SET",
+    "name": "Santa Magalhães Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNTF",
+    "iata": "TXF",
+    "name": "9 de Maio - Teixeira de Freitas Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSUM",
+    "iata": "UMU",
+    "name": "Orlando de Carvalho Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBTC",
+    "iata": "UNA",
+    "name": "Una-Comandatuba Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSUV",
+    "iata": "UVI",
+    "name": "José Cleto Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNEE",
+    "iata": "VCC",
+    "name": "Vacaria Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWHP",
+    "iata": "GGB",
+    "name": "Frederico Carlos Müller Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSLT",
+    "iata": "ALQ",
+    "name": "Alegrete Novo Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSOU",
+    "iata": "AIR",
+    "name": "Aripuanã Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWKO",
+    "iata": "CIZ",
+    "name": "Danilson Municipal Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SJHG",
+    "iata": "CFO",
+    "name": "Confresa Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSCP",
+    "iata": "CKO",
+    "name": "Cornélio Procópio Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWEI",
+    "iata": "ERN",
+    "name": "Eirunepé Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNIG",
+    "iata": "QIG",
+    "name": "Iguatu Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNSS",
+    "iata": NaN,
+    "name": "Salinas Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSSB",
+    "iata": "JBS",
+    "name": "São Borja Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWFX",
+    "iata": "SXO",
+    "name": "São Félix do Araguaia Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWKQ",
+    "iata": "NSR",
+    "name": "Serra da Capivara Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNOB",
+    "iata": NaN,
+    "name": "Sobral Public Airport",
+    "country": "Brazil",
+    "type": "closed"
+  },
+  {
+    "icao": "SNTO",
+    "iata": "TFL",
+    "name": "Juscelino Kubitscheck Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBUY",
+    "iata": "RPU",
+    "name": "Urucu Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SBAC",
+    "iata": "ARX",
+    "name": "Aracati Dragão do Mar Regional Airport",
+    "country": "Brazil",
+    "type": "medium_airport"
+  },
+  {
+    "icao": "SNYA",
+    "iata": "GGF",
+    "name": "Almeirim Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWLB",
+    "iata": "LBR",
+    "name": "Lábrea Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SIRI",
+    "iata": "MUU",
+    "name": "Barra Grande Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNTI",
+    "iata": "OBI",
+    "name": "Óbidos Municipal Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNZR",
+    "iata": "PYT",
+    "name": "Pedro Rabelo de Souza Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNEB",
+    "iata": "JPE",
+    "name": "Nagib Demachki Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWTP",
+    "iata": "IRZ",
+    "name": "Tapuruquara Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWTS",
+    "iata": "TGQ",
+    "name": "Tangará da Serra Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWYN",
+    "iata": "IUP",
+    "name": "Apuí Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNAB",
+    "iata": "JAW",
+    "name": "Araripina Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSVL",
+    "iata": NaN,
+    "name": "Fazenda Santa Claudina Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDLO",
+    "iata": "PBA",
+    "name": "Fábio Perini Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSKM",
+    "iata": "CBW",
+    "name": "Campo Mourão Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSCT",
+    "iata": "GGH",
+    "name": "Engenheiro Gastão de Mesquita Filho Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNWS",
+    "iata": "JCS",
+    "name": "Crateús Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWJN",
+    "iata": "JIA",
+    "name": "Juína Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWMW",
+    "iata": "MBZ",
+    "name": "Maués Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNMA",
+    "iata": "MTE",
+    "name": "Monte Alegre Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNOX",
+    "iata": "ORX",
+    "name": "Oriximiná Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDOW",
+    "iata": "OIA",
+    "name": "Ourilândia do Norte Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNTS",
+    "iata": "JPO",
+    "name": "Aeroporto Brigadeiro Firmino Ayres",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDH2",
+    "iata": NaN,
+    "name": "Porto Alegre do Norte Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SNMZ",
+    "iata": "PTQ",
+    "name": "Porto de Moz Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSRS",
+    "iata": NaN,
+    "name": "Rancho Sumidor Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SWBE",
+    "iata": "JSB",
+    "name": "Walfrido Salmito de Almeida Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SSOE",
+    "iata": "SQX",
+    "name": "São Miguel do Oeste Hélio Wasum Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "SDCG",
+    "iata": "OLC",
+    "name": "Senadora Eunice Micheles Airport",
+    "country": "Brazil",
+    "type": "small_airport"
+  },
+  {
+    "icao": "HSSS",
+    "iata": null,
+    "name": "Unknown airport (HSSS)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "OKBK",
+    "iata": null,
+    "name": "Unknown airport (OKBK)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SBMI",
+    "iata": null,
+    "name": "Unknown airport (SBMI)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SDWQ",
+    "iata": null,
+    "name": "Unknown airport (SDWQ)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SJZA",
+    "iata": null,
+    "name": "Unknown airport (SJZA)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SNBA",
+    "iata": null,
+    "name": "Unknown airport (SNBA)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SNRJ",
+    "iata": null,
+    "name": "Unknown airport (SNRJ)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SSGG",
+    "iata": null,
+    "name": "Unknown airport (SSGG)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SSTE",
+    "iata": null,
+    "name": "Unknown airport (SSTE)",
+    "country": null,
+    "type": null
+  },
+  {
+    "icao": "SYEC",
+    "iata": null,
+    "name": "Unknown airport (SYEC)",
+    "country": null,
+    "type": null
+  }
+]
