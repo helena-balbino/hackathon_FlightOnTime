@@ -1,4 +1,4 @@
-import flight_delay_pipeline as scr
+from . import flight_delay_pipeline as scr
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
