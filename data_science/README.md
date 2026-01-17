@@ -19,9 +19,7 @@ data_science/
 │   └── cronograma.md
 ├── semana_02/
 ├── semana_03/
-├── semana_04/
-├── semana_05/
-└── shared/
+└── semana_04/
 ```
 
 ---

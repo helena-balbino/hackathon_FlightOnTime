@@ -8,11 +8,11 @@ hooking = "ok"
 import flight_delay_pipeline as scr
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "flight_delay_pipeline__best_XGBoost.pkl"
+MODEL_PATH = BASE_DIR / "flightontime_pipeline.pkl"
 EXPLAIN_GLOBAL_PATH = BASE_DIR / "explain_global.json"
 
-app = FastAPI(title="FlightOnTime API", version="1.0")
-
+app = FastAPI(title="FlightOnTime API", version="2.0")
+API_VERSION = "2.0"
 # carrega pipeline
 pipeline = scr.carregar_pickle(str(MODEL_PATH))
 
@@ -32,7 +32,16 @@ REQUIRED_RAW_COLS = [
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    modelo_carregado = "pipeline" in globals() and globals().get("pipeline") is not None
+    modelo_path_ok = "MODEL_PATH" in globals() and Path(str(globals().get("MODEL_PATH"))).exists()
+
+    return {
+        "status": "UP",
+        "message": "FlightOnTime API is running",
+        "modelo_carregado": bool(modelo_carregado),
+        "modelo_path_ok": bool(modelo_path_ok),
+        "version": API_VERSION
+    }
 
 @app.get("/explain/global")
 def explain_global_endpoint():

@@ -1,4 +1,4 @@
-# 🐍 Python API - FlightOnTime
+# 🐍 Python API - FlightOnTime (FastAPI + ML + Explainability)
 
 API FastAPI para previsão de atrasos em voos usando Machine Learning.
 
@@ -7,6 +7,11 @@ API FastAPI para previsão de atrasos em voos usando Machine Learning.
 ## 📋 Visão Geral
 
 Esta API foi desenvolvida pelo time de Data Science para fornecer previsões de atrasos de voos através de modelos de Machine Learning treinados com dados históricos da ANAC.
+
+✅ **Modelo:** Pipeline Scikit-learn + XGBoost  
+✅ **Predição:** atraso vs no_prazo  
+✅ **Explicabilidade Global:** via arquivo `explain_global.json`  
+✅ **Explicabilidade Local:** Top features contribuidoras para a previsão (XGBoost contribs)
 
 ---
 
@@ -64,29 +69,65 @@ Verifica status da API e se o modelo está carregado.
   "version": "2.0"
 }
 ```
+### GET `/explain/global`
+
+Retorna a explicabilidade global carregada do arquivo `explain_global.json`.
+
+**Response:**
+```json
+{
+  "explain_global": { }
+}
+
+⚠️ Se o arquivo não existir: retorna 404
+
+```
 
 ### POST `/predict`
 
-Realiza previsão de atraso do voo.
+Realiza previsão de atraso do voo usando o contrato oficial do projeto.
 
 **Request:**
 ```json
 {
-  "companhia_icao": "GLO",
-  "origem_icao": "SBGR",
-  "destino_icao": "SBGL",
-  "data_partida": "2025-12-25T10:30:00",
-  "distancia_km": 350
+  "dados": {
+    "partida_prevista": "2025-12-25 10:30:00",
+    "empresa_aerea": "GLO",
+    "aerodromo_origem": "SBSP",
+    "aerodromo_destino": "SBGL",
+    "codigo_tipo_linha": "N"
+  },
+  "topk": 8
 }
+
+📌 O campo `topk`, retorna a quantidade de features mais importantes na explicabilidade global, é opcional e está configurado como default = 8
+
 ```
 
 **Response:**
 ```json
 {
-  "previsao": "Atrasado",
-  "probabilidade": 0.78,
-  "modelo_versao": "v1.0"
+  "prediction": 1,
+  "label": "atrasado",
+  "proba_atraso": 0.72,
+  "explain_local": {
+    "top_features": [
+      {
+        "feature": "num_mes_ano",
+        "contribution": 0.57,
+        "direction": "increase",
+        "value": 1.68
+      }
+    ]
+  }
 }
+
+📌 Onde:
+ - prediction → 1 = atrasado / 0 = no_prazo
+ - label → versão textual
+ - proba_atraso → probabilidade do atraso
+ - explain_local → explicação local com top contribuições do modelo
+
 ```
 
 ---
@@ -95,13 +136,12 @@ Realiza previsão de atraso do voo.
 
 | Arquivo | Descrição |
 |---------|-----------|
-| `java_integration_api.py` | API FastAPI com contrato Java |
-| `api_app.py` | API alternativa (formato original) |
+| `api_app.py` | API oficial do projeto (contrato final) |
 | `flight_delay_pipeline.py` | Pipeline ML e transformadores |
-| `flightontime_pipeline.pkl` | Modelo treinado serializado |
+| `flightontime_pipeline.pkl` | Modelo treinado serializado (pipeline final) |
+| `explain_global.json` | Explicabilidade global do modelo |
 | `requirements.txt` | Dependências Python |
 | `Dockerfile` | Imagem Docker da API |
-| `test_api.py` | Testes da API |
 
 ---
 
@@ -114,25 +154,29 @@ Realiza previsão de atraso do voo.
 curl http://localhost:5000/health
 
 # Predição
-curl -X POST http://localhost:5000/predict \
+curl -X POST "http://localhost:5000/predict" \
   -H "Content-Type: application/json" \
   -d '{
-    "companhia_icao": "GLO",
-    "origem_icao": "SBGR",
-    "destino_icao": "SBGL",
-    "data_partida": "2025-12-25T10:30:00",
-    "distancia_km": 350
+    "dados": {
+      "partida_prevista": "2025-12-25 10:30:00",
+      "empresa_aerea": "GLO",
+      "aerodromo_origem": "SBSP",
+      "aerodromo_destino": "SBGL",
+      "codigo_tipo_linha": "N"
+    },
+    "topk": 8
   }'
-```
 
+```
 ### Testes Automatizados
 
 ```bash
 # Executar suite de testes
-python test_api.py
+python api_app.py
 
 # Ou com pytest
-pytest test_api.py -v
+pytest api_app.py -v
+
 ```
 
 ---
