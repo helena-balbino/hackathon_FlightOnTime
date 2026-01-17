@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlightOnTime - Predict</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>FlightOnTime </h1>
+      <p>Previsão de atraso de voos com base em dados históricos da ANAC</p>
+    </header>
+
+    <div class="card">
+      <h2>Enviar dados do voo</h2>
+
+      <form id="predictForm">
+        <div class="grid">
+          <div class="field">
+            <label>Partida prevista</label>
+            <input name="partida_prevista" placeholder="2025-12-25 10:30:00" required />
+            <small>Formato: YYYY-MM-DD HH:MM:SS</small>
+          </div>
+
+          <div class="field">
+            <label>Empresa aérea</label>
+            <input name="empresa_aerea" placeholder="GLO" required />
+          </div>
+
+          <div class="field">
+            <label>Aeródromo origem</label>
+            <input name="aerodromo_origem" placeholder="SBSP" required />
+          </div>
+
+          <div class="field">
+            <label>Aeródromo destino</label>
+            <input name="aerodromo_destino" placeholder="SBGL" required />
+          </div>
+
+          <div class="field">
+            <label>Código tipo linha</label>
+            <select name="codigo_tipo_linha" required>
+              <option value="N" selected>N - Doméstica Mista</option>
+              <option value="C">C - Doméstica Cargueira</option>
+              <option value="I">I - Internacional Mista</option>
+              <option value="G">G - Internacional Cargueira</option>
+            </select>
+            <small>Tipo de operação realizada no voo (ANAC).</small>
+          </div>
+
+          <div class="field">
+            <label>Top K (explicação local)</label>
+            <input type="number" name="topk" value="8" min="1" max="20" />
+          </div>
+        </div>
+
+        <button type="submit">Prever</button>
+      </form>
+    </div>
+
+    <div id="result" class="card hidden">
+      <h2>Resultado</h2>
+
+      <!-- BADGES (um em cada extremo) -->
+      <div class="badges">
+        <span id="labelBadge" class="badge">Label: —</span>
+        <span id="probaBadge" class="badge secondary">Probabilidade de Atraso: —</span>
+      </div>
+
+      <div class="section">
+        <h3>Explicação local (Top features)</h3>
+        <div class="chartWrap">
+          <canvas id="chartLocal"></canvas>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Explicabilidade global</h3>
+        <div class="insight" id="globalInsight">
+          —
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <small>API: <a href="/docs" target="_blank">Swagger</a> • Health: <a href="/health" target="_blank">/health</a></small>
+    </footer>
+  </div>
+
+  <!-- IMPORTANTE: Chart.js antes do app.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

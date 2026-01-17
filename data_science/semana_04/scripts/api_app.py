@@ -1,9 +1,10 @@
 from pathlib import Path
 import json
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Body
-
-hooking = "ok"
+from fastapi import FastAPI, HTTPException, Body, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 import flight_delay_pipeline as scr
 
@@ -11,8 +12,14 @@ BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "flightontime_pipeline.pkl"
 EXPLAIN_GLOBAL_PATH = BASE_DIR / "explain_global.json"
 
-app = FastAPI(title="FlightOnTime API", version="2.0")
 API_VERSION = "2.0"
+
+app = FastAPI(title="FlightOnTime API", version=API_VERSION)
+
+# Templates e estáticos (UI)
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+
 # carrega pipeline
 pipeline = scr.carregar_pickle(str(MODEL_PATH))
 
@@ -30,24 +37,27 @@ REQUIRED_RAW_COLS = [
     "codigo_tipo_linha",
 ]
 
+
 @app.get("/health")
 def health():
-    modelo_carregado = "pipeline" in globals() and globals().get("pipeline") is not None
-    modelo_path_ok = "MODEL_PATH" in globals() and Path(str(globals().get("MODEL_PATH"))).exists()
+    modelo_carregado = pipeline is not None
+    modelo_path_ok = MODEL_PATH.exists()
 
     return {
         "status": "UP",
         "message": "FlightOnTime API is running",
         "modelo_carregado": bool(modelo_carregado),
         "modelo_path_ok": bool(modelo_path_ok),
-        "version": API_VERSION
+        "version": API_VERSION,
     }
+
 
 @app.get("/explain/global")
 def explain_global_endpoint():
     if explain_global is None:
         raise HTTPException(status_code=404, detail="Arquivo de explicabilidade global não encontrado.")
     return {"explain_global": explain_global}
+
 
 @app.post("/predict")
 def predict(payload: dict = Body(...)):
@@ -68,7 +78,6 @@ def predict(payload: dict = Body(...)):
         raise HTTPException(status_code=400, detail="Payload deve conter a chave 'dados'.")
 
     topk = int(payload.get("topk", 8))
-
     x = pd.DataFrame([payload["dados"]])
 
     faltando = [c for c in REQUIRED_RAW_COLS if c not in x.columns]
@@ -85,10 +94,18 @@ def predict(payload: dict = Body(...)):
     if hasattr(pipeline, "predict_proba"):
         resp["proba_atraso"] = float(pipeline.predict_proba(x)[0, 1])
 
-    # explicabilidade local (XGBoost contribs)
+    # ✅ explicabilidade global (sempre no response)
+    # Se não existir, retorna None (mantém o contrato estável)
+    resp["explain_global"] = explain_global
+
+    # ✅ explicabilidade local
     try:
         resp["explain_local"] = scr.explicar_local_xgb(pipeline, x, top_k=topk)
     except Exception as e:
         resp["explain_local_error"] = str(e)
 
     return resp
+
+@app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
