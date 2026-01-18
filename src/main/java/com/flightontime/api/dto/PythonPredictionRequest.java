@@ -40,4 +40,7 @@ public class PythonPredictionRequest {
 
     @JsonProperty("data_partida")
     private String dataPartida; // Formato ISO: "2025-11-10T14:30:00"
+
+    @JsonProperty("distancia_km")
+    private Integer distanciaKm;
 }
