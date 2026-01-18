@@ -110,7 +110,6 @@ public class FlightPredictionService {
                     .origemIcao(origemIcao)
                     .destinoIcao(destinoIcao)
                     .dataPartida(request.getDataPartida().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
-                    .distanciaKm(request.getDistanciaKm())
                     .build();
 
             // Chama serviço Python (Squad B)
@@ -183,11 +182,13 @@ public class FlightPredictionService {
             score += 0.15; // Sexta: mais atraso
         }
 
-        int distancia = request.getDistanciaKm();
-        if (distancia < 500) {
-            score -= 0.1; // Voo curto: menos atraso
-        } else if (distancia > 1500) {
-            score += 0.1; // Voo longo: mais atraso
+        Integer distancia = request.getDistanciaKm();
+        if (distancia != null) {
+            if (distancia < 500) {
+                score -= 0.1;
+            } else if (distancia > 1500) {
+                score += 0.1;
+            }
         }
 
         // Fator 4: Companhias específicas (simulação)
