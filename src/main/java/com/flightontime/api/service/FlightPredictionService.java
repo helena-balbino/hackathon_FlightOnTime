@@ -10,18 +10,21 @@ import com.flightontime.api.mapper.AirportCodeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
+// .
 /**
  * Serviço responsável pela lógica de previsão de voos
- * 
- * SEMANA 1: Retorna dados MOCKADOS ✅
- * SEMANA 2: Integração com microserviço Python ⬅️ ESTAMOS AQUI!
- * 
+ *
+ * FUNCIONALIDADES:
+ * - Cache de previsões (reduz latência)
+ * - Integração com microserviço Python
+ * - Fallback automático para mock em caso de falha
+ *
  * ESTRATÉGIA DE TRANSIÇÃO:
  * - Flag (use-mock-service) controla mock vs Python
  * - Permite testar a integração gradualmente
@@ -53,23 +56,23 @@ public class FlightPredictionService {
 
     /**
      * Realiza a previsão de atraso do voo
-     * 
+     * Resultado é cacheado para melhorar performance
+     *
      * FLUXO:
-     * 1. Converte códigos IATA → ICAO (Squad A)
-     * 2. Monta DTO para Python
-     * 3. Chama serviço Python OU mock (Squad B)
-     * 4. Retorna resposta para o Controller
-     * 
+     * 1. Verifica cache (retorna se já existe)
+     * 2. Converte códigos IATA → ICAO
+     * 3. Chama serviço Python OU mock
+     * 4. Armazena no cache e retorna
+     *
      * @param request Dados do voo (formato IATA)
      * @return Previsão com status e probabilidade
      */
+    @Cacheable(value = "predictions", key = "#request.hashCode()")
     public FlightPredictionResponse predict(FlightPredictionRequest request) {
         log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})",
-                request.getOrigem(), 
-                request.getDestino(), 
-                request.getCompanhia());
+                request.getOrigem(), request.getDestino(), request.getCompanhia());
 
-        // ETAPA 1: Conversão IATA → ICAO (Squad A)
+        // 1. Conversão IATA → ICAO (Necessário para ambos os modos)
         String origemIcao = airportMapper.toIcao(request.getOrigem());
         String destinoIcao = airportMapper.toIcao(request.getDestino());
         String companhiaIcao = airlineMapper.toIcao(request.getCompanhia());
@@ -79,7 +82,7 @@ public class FlightPredictionService {
                 request.getDestino(), destinoIcao,
                 request.getCompanhia(), companhiaIcao);
 
-        // ETAPA 2: Decidir entre Mock ou Python
+        // 2. Decidir entre Mock ou Python
         if (useMockService) {
             log.info("🎭 MODO MOCK ativado - Usando lógica local");
             return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
@@ -99,28 +102,42 @@ public class FlightPredictionService {
             String companhiaIcao) {
 
         try {
-            // Monta DTO para Python
-            PythonPredictionRequest pythonRequest = PythonPredictionRequest.builder()
-                    .companhiaIcao(companhiaIcao)
-                    .origemIcao(origemIcao)
-                    .destinoIcao(destinoIcao)
-                    .dataPartida(request.getDataPartida().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
-                    .distanciaKm(request.getDistanciaKm())
+            // 1. Formatar data para o padrão que o Python espera (sem o 'T')
+            String dataFormatada = request.getDataPartida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            // 2. Montar o payload interno (DENTRO da chave "dados")
+            var payload = PythonPredictionRequest.PythonDataPayload.builder()
+                    .partidaPrevista(dataFormatada)
+                    .empresaAerea(companhiaIcao)
+                    .aerodromoOrigem(origemIcao)
+                    .aerodromoDestino(destinoIcao)
+                    .codigoTipoLinha("N")
                     .build();
 
-            // Chama serviço Python (Squad B)
+            // 3. Montar o request final para a API Python
+            PythonPredictionRequest pythonRequest = PythonPredictionRequest.builder()
+                    .dados(payload)
+                    .topk(8)
+                    .build();
+
+            // 4. Chamar o Client HTTP
             PythonPredictionResponse pythonResponse = pythonClient.getPrediction(pythonRequest);
 
-            // Converte resposta Python → resposta API
+            // 5. Traduzir a label do Python para o nosso padrão de exibição
+            String resultadoTraduzido = (pythonResponse.getLabel() != null &&
+                    pythonResponse.getLabel().equalsIgnoreCase("atrasado"))
+                    ? "Atrasado" : "Pontual";
+
+            // 6. Retornar a resposta completa incluindo os dados dos gráficos
             return FlightPredictionResponse.builder()
-                    .previsao(pythonResponse.getPrevisao())
-                    .probabilidade(pythonResponse.getProbabilidade())
+                    .previsao(resultadoTraduzido)
+                    .probabilidade(pythonResponse.getProbaAtraso())
+                    .explicabilidadeGlobal(pythonResponse.getExplainGlobal()) // Dados para o gráfico global
+                    .explicabilidadeLocal(pythonResponse.getExplainLocal())   // Dados para o gráfico do voo
                     .build();
 
         } catch (Exception ex) {
-            log.error("❌ Falha crítica na integração Python: {}", ex.getMessage());
-
-            log.info("🛡️ Ativando Fallback de segurança (Lógica Mock)");
+            log.error("❌ Falha na integração Python: {}. Acionando fallback para Mock.", ex.getMessage());
             return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
         }
     }
@@ -173,12 +190,6 @@ public class FlightPredictionService {
             score += 0.15; // Sexta: mais atraso
         }
 
-        int distancia = request.getDistanciaKm();
-        if (distancia < 500) {
-            score -= 0.1; // Voo curto: menos atraso
-        } else if (distancia > 1500) {
-            score += 0.1; // Voo longo: mais atraso
-        }
 
         // Fator 4: Companhias específicas (simulação)
         if ("AZU".equalsIgnoreCase(companhiaIcao)) {
@@ -199,12 +210,6 @@ public class FlightPredictionService {
 
         if (mes == 12 && dia >= 20) {
             score += 0.20;
-
-            if (distancia < 500) {
-                log.info("🔄 Voo curto em período crítico: risco de efeito cascata.");
-                score += 0.08;
-            }
-            log.info("Fator Sazonal: Período de festas e alta demanda.");
         }
 
 
