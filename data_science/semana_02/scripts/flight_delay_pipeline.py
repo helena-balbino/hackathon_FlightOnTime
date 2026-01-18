@@ -463,6 +463,31 @@ class MediaAtrasoTransformer(BaseEstimator, TransformerMixin):
 
         return X
 
+class UltimateFeatureEngineer(BaseEstimator, TransformerMixin):
+    """
+    Implementação de Features de Alta Densidade de Sinal:
+    - Periodicidade Cíclica (Seno/Cosseno)
+    - Identificação de Hubs Estratégicos
+    - Sazonalidade de Negócio
+    """
+    def fit(self, X, y=None): return self
+
+    def transform(self, X):
+        X_out = X.copy()
+        # 1. Garantir colunas temporais
+        X_out['hora_dia'] = X_out['partida_prevista'].dt.hour
+
+        # 2. Encoding Cíclico
+        X_out['hora_sin'] = np.sin(2 * np.pi * X_out['hora_dia'] / 24)
+        X_out['hora_cos'] = np.cos(2 * np.pi * X_out['hora_dia'] / 24)
+
+        # 3. Sinal de Aeroportos de Alta Movimentação (Hubs Nacionais)
+        hubs = ['SBGR', 'SBSP', 'SBGL', 'SBRJ', 'SBCF', 'SBKP']
+        X_out['is_hub'] = (X_out['aerodromo_origem'].isin(hubs) |
+                           X_out['aerodromo_destino'].isin(hubs)).astype(int)
+
+        return X_out
+
 
 # ----------------------------------------------------------------------------#
 # Split
@@ -557,6 +582,7 @@ def treinar_classificador(
             col_dt="partida_prevista",
             col_atraso="atraso_partida_min"  # se isso gerar vazamento no seu caso, remova do transformer
         )),
+        ("ultimate", UltimateFeatureEngineer()),
         ("medias", MediaAtrasoTransformer(
             col_atraso="atraso_partida_min"
         )),
@@ -610,50 +636,97 @@ def treinar_classificador(
 # Avaliação do Modelo
 # ----------------------------------------------------------------------------#
 
-def gerar_relatorio_classificacao(
-    metrics: dict,
-    y_true=None,
-    y_pred=None,
-    title: str = "Matriz de Confusão",
-    normalize: bool = False
-):
-    from sklearn.metrics import classification_report
-    print("\n MÉTRICAS ")
-    for k, v in metrics.items():
-        if k not in ["confusion_matrix", "classification_report"]:
-            print(f"{k}: {v}")
+def extrair_metricas(out: dict, positive_label="1") -> dict:
+    m = out["metrics"]
+    rep = m["classification_report"]  # dict
+    cm = np.array(m["confusion_matrix"])
 
-    if y_true is not None and y_pred is not None:
-        print("\n RELATÓRIO DE CLASSIFICAÇÃO ")
-        print(classification_report(y_true, y_pred))
+    # Suporte/label pode ser "1" ou 1 dependendo do sklearn
+    cls = rep.get(positive_label, rep.get(int(positive_label), {}))
 
-    else:
-        print(
-            "\n Relatório de Classificação não pôde ser regenerado "
-            "(y_true / y_pred não fornecidos)."
-        )
+    return {
+        "accuracy": rep.get("accuracy", np.nan),
+        "precision_pos": cls.get("precision", np.nan),
+        "recall_pos": cls.get("recall", np.nan),
+        "f1_pos": cls.get("f1-score", np.nan),
+        "support_pos": cls.get("support", np.nan),
+        "f1_macro": rep.get("macro avg", {}).get("f1-score", np.nan),
+        "f1_weighted": rep.get("weighted avg", {}).get("f1-score", np.nan),
+        "roc_auc": m.get("roc_auc", np.nan),
+        "cm": cm,
+    }
 
-    # ===== MATRIZ DE CONFUSÃO =====
-    import numpy as np
-    from sklearn.metrics import ConfusionMatrixDisplay
-    import matplotlib.pyplot as plt
+def plot_cm_2x2(cm_dict, title="Matrizes de Confusão (2×2)"):
+    """
+    cm_dict: dict {nome_modelo: cm(np.array)}
+    Plota em painel 2x2 com labels e contagens.
+    """
+    nomes = list(cm_dict.keys())
+    n = len(nomes)
 
-    cm = np.array(metrics["confusion_matrix"])
+    # força 2x2 (se tiver menos de 4, deixa os vazios)
+    fig, axes = plt.subplots(2, 2, figsize=(12, 9))
+    axes = axes.ravel()
 
-    if normalize:
-        cm = cm / cm.sum(axis=1, keepdims=True)
+    for i, ax in enumerate(axes):
+        if i >= n:
+            ax.axis("off")
+            continue
 
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot(
-        cmap="Blues",
-        values_format=".2f" if normalize else "d"
-    )
+        nome = nomes[i]
+        cm = cm_dict[nome]
 
-    plt.title(title)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["0", "1"])
+        disp.plot(ax=ax, values_format="d", colorbar=False)
+        ax.set_title(nome)
+
+        # melhora legibilidade
+        ax.set_xlabel("Predito")
+        ax.set_ylabel("Real")
+
+    fig.suptitle(title, fontsize=14)
+    plt.tight_layout()
     plt.show()
 
+def plot_cm_percent_2x2(cm_dict, title="Matrizes de Confusão (Percentual por classe real)"):
+    """
+    Mostra percentuais por linha (cada classe real soma 100%).
+    """
+    nomes = list(cm_dict.keys())
+    n = len(nomes)
 
+    fig, axes = plt.subplots(2, 2, figsize=(12, 9))
+    axes = axes.ravel()
 
+    for i, ax in enumerate(axes):
+        if i >= n:
+            ax.axis("off")
+            continue
+
+        nome = nomes[i]
+        cm = cm_dict[nome].astype(float)
+        row_sums = cm.sum(axis=1, keepdims=True)
+        cm_pct = np.divide(cm, row_sums, out=np.zeros_like(cm), where=row_sums != 0) * 100
+
+        im = ax.imshow(cm_pct)
+        ax.set_title(nome)
+        ax.set_xlabel("Predito")
+        ax.set_ylabel("Real")
+        ax.set_xticks([0, 1]); ax.set_yticks([0, 1])
+        ax.set_xticklabels(["0", "1"]); ax.set_yticklabels(["0", "1"])
+
+        # anota com % e contagem
+        cm_counts = cm_dict[nome]
+        for r in range(2):
+            for c in range(2):
+                ax.text(c, r, f"{cm_pct[r, c]:.1f}%\n({cm_counts[r, c]})",
+                        ha="center", va="center")
+
+        fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+
+    fig.suptitle(title, fontsize=14)
+    plt.tight_layout()
+    plt.show()
 
 # ----------------------------------------------------------------------------#
 # Salvar e Carregar Modelo

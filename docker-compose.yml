@@ -16,9 +16,11 @@ services:
   python-api:
     build:
       context: .
-      dockerfile: data_science/semana_02/scripts/Dockerfile
+      dockerfile: data_science/semana_04/scripts/Dockerfile
     container_name: flightontime-python
     image: flightontime-python:latest
+
+    command: uvicorn api_app:app --host 0.0.0.0 --port 5000
     
     ports:
       - "5000:5000"
@@ -30,7 +32,7 @@ services:
     volumes:
       # Mount para desenvolvimento (hot reload)
       # Comentar em produção
-      - ./data_science/semana_02/scripts:/app:ro
+      - ./data_science/semana_04/scripts:/app:ro
     
     networks:
       - flightontime-network

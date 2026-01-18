@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -25,16 +26,19 @@ class GlobalExceptionHandlerTest {
     @DisplayName("Deve retornar 400 para IllegalArgumentException")
     void deveTratarErroDeArgumento() {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/api/predict");
+        request.setRequestURI("/api/v1/predict");
 
         ResponseEntity<ErrorResponse> response = handler.handleIllegalArgumentException(
                 new IllegalArgumentException("Dados inválidos"), request);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Bad Request", response.getBody().getError());
-        assertEquals("Dados inválidos", response.getBody().getMessage());
-        assertEquals("/api/predict", response.getBody().getPath());
-        assertNotNull(response.getBody().getTimestamp());
+        
+        ErrorResponse body = response.getBody();
+        assertNotNull(body);
+        assertEquals("Bad Request", body.getError());
+        assertEquals("Dados inválidos", body.getMessage());
+        assertEquals("/api/v1/predict", body.getPath());
+        assertNotNull(body.getTimestamp());
     }
 
     @Test
@@ -44,31 +48,37 @@ class GlobalExceptionHandlerTest {
         request.setRequestURI("/api/voo/999");
         
         NoHandlerFoundException ex = new NoHandlerFoundException(
-                "GET", "/api/voo/999", null);
+                "GET", "/api/voo/999", new HttpHeaders());
 
         ResponseEntity<ErrorResponse> response = handler.handleNotFound(ex, request);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals("Not Found", response.getBody().getError());
-        assertEquals("O recurso solicitado não foi encontrado", response.getBody().getMessage());
-        assertEquals("/api/voo/999", response.getBody().getPath());
-        assertNotNull(response.getBody().getTimestamp());
+        
+        ErrorResponse body = response.getBody();
+        assertNotNull(body);
+        assertEquals("Not Found", body.getError());
+        assertEquals("O recurso solicitado não foi encontrado", body.getMessage());
+        assertEquals("/api/voo/999", body.getPath());
+        assertNotNull(body.getTimestamp());
     }
 
     @Test
     @DisplayName("Deve tratar status 500 - Internal Server Error")
     void deveTratarExcecaoGenerica() {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/api/predict");
+        request.setRequestURI("/api/v1/predict");
 
         ResponseEntity<ErrorResponse> response = handler.handleAllExceptions(
                 new Exception("Erro inesperado"), request);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Internal Server Error", response.getBody().getError());
-        assertEquals("Ocorreu um erro interno inesperado", response.getBody().getMessage());
-        assertEquals("/api/predict", response.getBody().getPath());
-        assertNotNull(response.getBody().getTimestamp());
+        
+        ErrorResponse body = response.getBody();
+        assertNotNull(body);
+        assertEquals("Internal Server Error", body.getError());
+        assertEquals("Ocorreu um erro interno inesperado", body.getMessage());
+        assertEquals("/api/v1/predict", body.getPath());
+        assertNotNull(body.getTimestamp());
     }
 
     /**
