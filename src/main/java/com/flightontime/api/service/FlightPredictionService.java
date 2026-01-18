@@ -10,7 +10,6 @@ import com.flightontime.api.mapper.AirportCodeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -20,10 +19,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * Serviço responsável pela lógica de previsão de voos
  * 
- * FUNCIONALIDADES:
- * - Cache de previsões (reduz latência)
- * - Integração com microserviço Python
- * - Fallback automático para mock em caso de falha
+ * SEMANA 1: Retorna dados MOCKADOS ✅
+ * SEMANA 2: Integração com microserviço Python ⬅️ ESTAMOS AQUI!
  * 
  * ESTRATÉGIA DE TRANSIÇÃO:
  * - Flag (use-mock-service) controla mock vs Python
@@ -56,18 +53,16 @@ public class FlightPredictionService {
 
     /**
      * Realiza a previsão de atraso do voo
-     * Resultado é cacheado para melhorar performance
      * 
      * FLUXO:
-     * 1. Verifica cache (retorna se já existe)
-     * 2. Converte códigos IATA → ICAO
-     * 3. Chama serviço Python OU mock
-     * 4. Armazena no cache e retorna
+     * 1. Converte códigos IATA → ICAO (Squad A)
+     * 2. Monta DTO para Python
+     * 3. Chama serviço Python OU mock (Squad B)
+     * 4. Retorna resposta para o Controller
      * 
      * @param request Dados do voo (formato IATA)
      * @return Previsão com status e probabilidade
      */
-    @Cacheable(value = "predictions", key = "#request.hashCode()")
     public FlightPredictionResponse predict(FlightPredictionRequest request) {
         log.info("🔮 Processando previsão para voo {} → {} (Companhia: {})",
                 request.getOrigem(), 
@@ -110,6 +105,7 @@ public class FlightPredictionService {
                     .origemIcao(origemIcao)
                     .destinoIcao(destinoIcao)
                     .dataPartida(request.getDataPartida().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                    .distanciaKm(request.getDistanciaKm())
                     .build();
 
             // Chama serviço Python (Squad B)
@@ -120,11 +116,6 @@ public class FlightPredictionService {
                     .previsao(pythonResponse.getPrevisao())
                     .probabilidade(pythonResponse.getProbabilidade())
                     .build();
-
-        } catch (org.springframework.web.client.ResourceAccessException ex) {
-            log.error("⏳ TIMEOUT CRÍTICO: O microserviço Python demorou mais de 10 segundos ou está offline.");
-            log.info("🛡️ RESILIÊNCIA: Acionando Fallback Automático (Lógica Mock) para garantir resposta.");
-            return predictWithMock(request, origemIcao, destinoIcao, companhiaIcao);
 
         } catch (Exception ex) {
             log.error("❌ Falha crítica na integração Python: {}", ex.getMessage());
@@ -182,13 +173,11 @@ public class FlightPredictionService {
             score += 0.15; // Sexta: mais atraso
         }
 
-        Integer distancia = request.getDistanciaKm();
-        if (distancia != null) {
-            if (distancia < 500) {
-                score -= 0.1;
-            } else if (distancia > 1500) {
-                score += 0.1;
-            }
+        int distancia = request.getDistanciaKm();
+        if (distancia < 500) {
+            score -= 0.1; // Voo curto: menos atraso
+        } else if (distancia > 1500) {
+            score += 0.1; // Voo longo: mais atraso
         }
 
         // Fator 4: Companhias específicas (simulação)
