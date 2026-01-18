@@ -15,14 +15,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Resultado da previsão de atraso do voo")
+@Schema(description = "Resultado da previsão de atraso do voo com dados para gráficos")
 public class FlightPredictionResponse {
 
     @Schema(description = "Status previsto do voo", example = "Atrasado", allowableValues = {"Pontual", "Atrasado"})
     @JsonProperty("previsao")
     private String previsao;
 
-    @Schema(description = "Probabilidade da previsão (0.0 a 1.0)", example = "0.78", minimum = "0.0", maximum = "1.0")
+    @Schema(description = "Probabilidade da previsão (0.0 a 1.0)", example = "0.78")
     @JsonProperty("probabilidade")
     private Double probabilidade;
+
+    @Schema(description = "Dados para o gráfico de importância global (geral do modelo)")
+    @JsonProperty("explicabilidade_global")
+    private Object explicabilidadeGlobal;
+
+    @Schema(description = "Dados para o gráfico de importância local (específico deste voo)")
+    @JsonProperty("explicabilidade_local")
+    private Object explicabilidadeLocal;
 }

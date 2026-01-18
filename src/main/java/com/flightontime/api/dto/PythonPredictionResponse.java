@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 /**
  * DTO de RESPONSE do microserviço Python
  * 
@@ -21,17 +22,16 @@ import lombok.NoArgsConstructor;
  * }
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class PythonPredictionResponse {
+    private Integer prediction;
+    private String label;
 
-    @JsonProperty("previsao")
-    private String previsao; // "Pontual" ou "Atrasado"
+    @JsonProperty("proba_atraso")
+    private Double probaAtraso;
 
-    @JsonProperty("probabilidade")
-    private Double probabilidade; // 0.0 a 1.0
+    @JsonProperty("explain_global") // Mapeia o que vem do Python
+    private Object explainGlobal;    // Gera o getExplainGlobal()
 
-    @JsonProperty("modelo_versao")
-    private String modeloVersao; // Versão do modelo de ML
+    @JsonProperty("explain_local")  // Mapeia o que vem do Python
+    private Object explainLocal;     // Gera o getExplainLocal()
 }

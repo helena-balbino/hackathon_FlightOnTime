@@ -17,18 +17,10 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Client HTTP para comunicação com o microserviço Python (Data Science)
- * 
- * EQUIPE RESPONSÁVEL: Squad B (Integração & Core)
- * 
- * RESPONSABILIDADE:
- * - Fazer requisição POST para o serviço Python
- * - Retry automático com backoff exponencial
- * - Converter exceções HTTP em exceções de negócio
- * - Logar requisições/respostas para debugging
- * 
- * TECH STACK:
- * - RestTemplate (Spring Framework)
- * - Spring Retry para resiliência
+ * * RESPONSABILIDADE:
+ * - Fazer requisição POST para o serviço Python (FastAPI)
+ * - Implementar Retry em caso de falhas temporárias
+ * - Converter JSON em objetos Java (DTOs)
  */
 @Slf4j
 @Component
@@ -37,47 +29,36 @@ public class PythonPredictionClient {
     private final RestTemplate restTemplate;
     private final String pythonServiceUrl;
 
-    /**
-     * Construtor com injeção de dependências
-     * 
-     * @param restTemplate Bean configurado no Spring Context
-     * @param pythonServiceUrl URL do serviço Python (vem do application.properties)
-     */
     public PythonPredictionClient(
             RestTemplate restTemplate,
             @Value("${prediction.service.url}") String pythonServiceUrl) {
         this.restTemplate = restTemplate;
         this.pythonServiceUrl = pythonServiceUrl;
-        log.info("🔗 PythonPredictionClient inicializado. URL: {}", pythonServiceUrl);
+        log.info("🔗 PythonPredictionClient inicializado na URL: {}", pythonServiceUrl);
     }
 
     /**
-     * Faz requisição POST para o serviço Python
-     * Com retry automático em caso de falha transitória
-     * 
-     * @param request Dados do voo em formato ICAO
-     * @return Previsão retornada pelo modelo de ML
-     * @throws RestClientException se houver erro na comunicação (após todas as tentativas)
+     * Faz a chamada para a IA no Python.
+     * Tenta 3 vezes com intervalo crescente (backoff) antes de desistir.
      */
     @Retryable(
-        retryFor = {RestClientException.class},
-        maxAttempts = 3,
-        backoff = @Backoff(delay = 1000, multiplier = 2)
+            retryFor = {RestClientException.class},
+            maxAttempts = 3,
+            backoff = @Backoff(delay = 1000, multiplier = 2)
     )
     public PythonPredictionResponse getPrediction(PythonPredictionRequest request) {
         try {
-            log.info("📤 Enviando requisição para Python: {} → {}",
-                    request.getOrigemIcao(),
-                    request.getDestinoIcao());
+            log.info("📤 Enviando para Python: {} → {} (Data: {})",
+                    request.getDados().getAerodromoOrigem(),
+                    request.getDados().getAerodromoDestino(),
+                    request.getDados().getPartidaPrevista());
 
-            // Configurar headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            // Criar a requisição
             HttpEntity<PythonPredictionRequest> httpEntity = new HttpEntity<>(request, headers);
 
-            // Fazer a chamada POST
+            // Chamada POST para o endpoint /predict
             ResponseEntity<PythonPredictionResponse> response = restTemplate.postForEntity(
                     pythonServiceUrl + "/predict",
                     httpEntity,
@@ -86,43 +67,38 @@ public class PythonPredictionClient {
 
             PythonPredictionResponse body = response.getBody();
 
-            log.info("📥 Resposta do Python: Previsão={}, Probabilidade={}",
-                    body != null ? body.getPrevisao() : "null",
-                    body != null ? body.getProbabilidade() : "null");
+            if (body != null) {
+                log.info("📥 Resposta do Python: Status={}, Probabilidade={}",
+                        body.getLabel(),
+                        body.getProbaAtraso());
+            }
 
             return body;
 
         } catch (Exception ex) {
-            log.error("❌ Erro ao comunicar com o serviço Python: {}", ex.getMessage());
-            throw new RestClientException("Falha na comunicação com o serviço de previsão", ex);
+            log.error("❌ Erro na comunicação com Python: {}", ex.getMessage());
+            throw new RestClientException("Erro ao conectar com a API de Data Science", ex);
         }
     }
 
     /**
-     * Método de recuperação quando todas as tentativas de retry falharem
-     * 
-     * @param ex Exceção que causou a falha
-     * @param request Request original
-     * @return null (indica falha para o service usar fallback)
+     * Fallback: Executado quando as 3 tentativas de Retry falham.
      */
     @Recover
     public PythonPredictionResponse recover(RestClientException ex, PythonPredictionRequest request) {
-        log.error("⚠️ Todas as {} tentativas de conexão falharam. Fallback será acionado.", 3);
-        throw ex; // Re-lança para o Service tratar com mock
+        log.error("⚠️ Fallback acionado: O serviço Python está fora do ar ou o contrato mudou.");
+        throw ex; // O Service capturará isso e usará o Mock
     }
 
     /**
-     * Health check do serviço Python
-     * (Útil para monitoramento e testes)
-     * 
-     * @return true se o serviço está respondendo
+     * Verifica se o microserviço Python está online
      */
     public boolean isHealthy() {
         try {
             restTemplate.getForEntity(pythonServiceUrl + "/health", String.class);
             return true;
         } catch (Exception ex) {
-            log.warn("⚠️ Serviço Python não está respondendo: {}", ex.getMessage());
+            log.warn("⚠️ Health Check falhou para o serviço Python.");
             return false;
         }
     }

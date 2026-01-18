@@ -37,7 +37,6 @@ class FlightRouteValidatorTest {
                 .origem("GRU")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -58,7 +57,6 @@ class FlightRouteValidatorTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -74,7 +72,6 @@ class FlightRouteValidatorTest {
                 .origem(null)
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -92,7 +89,6 @@ class FlightRouteValidatorTest {
                 .origem("GIG")
                 .destino(null)
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -110,7 +106,6 @@ class FlightRouteValidatorTest {
                 .origem("GRUU") // 4 caracteres ao invés de 3
                 .destino("GI") // 2 caracteres ao invés de 3
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =

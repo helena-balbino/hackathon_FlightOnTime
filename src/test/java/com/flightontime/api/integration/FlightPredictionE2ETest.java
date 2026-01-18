@@ -29,7 +29,6 @@ public class FlightPredictionE2ETest {
                 .origem("GRU")
                 .destino("GIG")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         // 2. Executamos a chamada. Com o perfil 'integration', o 'use-mock' estará 'false'

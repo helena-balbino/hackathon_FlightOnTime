@@ -37,7 +37,6 @@ class FlightPredictionRequestFutureTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().minusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -58,7 +57,6 @@ class FlightPredictionRequestFutureTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -74,7 +72,6 @@ class FlightPredictionRequestFutureTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().minusNanos(1))
-                .distanciaKm(350)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -108,7 +105,6 @@ class FlightPredictionRequestFutureTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(-100)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =
@@ -126,7 +122,6 @@ class FlightPredictionRequestFutureTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(0)
                 .build();
 
         Set<ConstraintViolation<FlightPredictionRequest>> violations =

@@ -73,7 +73,6 @@ class FlightPredictionServiceTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.of(2025, 11, 10, 8, 30))
-                .distanciaKm(350)
                 .build();
 
         // Act
@@ -96,7 +95,6 @@ class FlightPredictionServiceTest {
                 .origem("GRU")
                 .destino("MAO")
                 .dataPartida(LocalDateTime.of(2025, 11, 15, 20, 45))
-                .distanciaKm(2850)
                 .build();
 
         // Act
@@ -116,9 +114,7 @@ class FlightPredictionServiceTest {
                 .companhia("G3")
                 .origem("CGH")
                 .destino("SDU")
-                .dataPartida(LocalDateTime.of(2025, 11, 16, 14, 0))
-                .distanciaKm(400)
-                .build();
+                .dataPartida(LocalDateTime.of(2025, 11, 16, 14, 0)).build();
 
         // Act
         FlightPredictionResponse response = service.predict(request);
@@ -137,7 +133,6 @@ class FlightPredictionServiceTest {
                 .origem("GIG")
                 .destino("GRU")
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(350)
                 .build();
 
         // Act
@@ -160,7 +155,6 @@ class FlightPredictionServiceTest {
                 .origem("SBGR")
                 .destino("REC")
                 .dataPartida(LocalDateTime.of(2025, 12, 24, 19, 0))
-                .distanciaKm(2100)
                 .build();
 
         FlightPredictionResponse response = service.predict(request);
@@ -178,7 +172,6 @@ class FlightPredictionServiceTest {
                 .origem("VIX")
                 .destino("SDU")
                 .dataPartida(LocalDateTime.of(2025, 6, 15, 7, 0))
-                .distanciaKm(420)
                 .build();
 
         FlightPredictionResponse response = service.predict(request);
@@ -196,7 +189,6 @@ class FlightPredictionServiceTest {
                 .origem("SBGR") // Hub
                 .destino("SSA") // Turístico
                 .dataPartida(LocalDateTime.of(2025, 12, 22, 18, 30)) // Natal + Tempestade + Sexta
-                .distanciaKm(1500)
                 .build();
 
         FlightPredictionResponse response = service.predict(request);
@@ -217,7 +209,6 @@ class FlightPredictionServiceTest {
                 .origem("GRU")
                 .destino("GIG")
                 .dataPartida(LocalDateTime.of(2025, 11, 20, 14, 30))
-                .distanciaKm(350)
                 .build();
 
         // 3. Simulamos uma falha crítica no Python (ex: Timeout ou Conexão Recusada)
@@ -249,7 +240,6 @@ class FlightPredictionServiceTest {
                 .origem(ori)
                 .destino(dest)
                 .dataPartida(LocalDateTime.now().plusDays(1))
-                .distanciaKm(dist)
                 .build();
 
         FlightPredictionResponse response = service.predict(request);
