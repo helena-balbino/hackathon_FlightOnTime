@@ -6,13 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 /**
  * DTO de RESPONSE do microserviço Python
- * 
+ *
  * EQUIPE RESPONSÁVEL: Squad A (Interface & Dados)
- * 
+ *
  * ⚠️ ATENÇÃO: Este DTO deve estar EXATAMENTE igual ao que o time de DS vai retornar!
- * 
+ *
  * CONTRATO COM DATA SCIENCE (Python):
  * {
  *   "previsao": "Atrasado",
@@ -21,21 +22,16 @@ import lombok.NoArgsConstructor;
  * }
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PythonPredictionResponse {
-
     private Integer prediction;
     private String label;
 
     @JsonProperty("proba_atraso")
     private Double probaAtraso;
 
-    // AQUI ESTÁ O SEGREDO: O nome no JsonProperty deve ser igual ao do Python!
-    @JsonProperty("explain_global") 
-    private Object explainGlobal;
+    @JsonProperty("explain_global") // Mapeia o que vem do Python
+    private Object explainGlobal;    // Gera o getExplainGlobal()
 
-    @JsonProperty("explain_local")
-    private Object explainLocal;
+    @JsonProperty("explain_local")  // Mapeia o que vem do Python
+    private Object explainLocal;     // Gera o getExplainLocal()
 }
-
