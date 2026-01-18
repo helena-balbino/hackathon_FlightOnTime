@@ -1,58 +1,46 @@
 package com.flightontime.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.flightontime.api.validation.FlightRouteValid;
-import jakarta.validation.constraints.Future;
-
-import java.time.LocalDateTime;
 
 /**
- * DTO para requisição de previsão de voo
- * Contrato alinhado com o time de Data Science
+ * DTO de REQUEST para o microserviço Python
+ * 
+ * EQUIPE RESPONSÁVEL: Squad A (Interface & Dados)
+ * 
+ * ⚠️ ATENÇÃO: Este DTO deve estar EXATAMENTE igual ao que o time de DS espera!
+ * Qualquer campo com nome diferente vai resultar em erro 400/422.
+ * 
+ * CONTRATO COM DATA SCIENCE (Python):
+ * {
+ *   "companhia_icao": "GLO",
+ *   "origem_icao": "SBGR",
+ *   "destino_icao": "SBGL",
+ *   "data_partida": "2025-11-10T14:30:00",
+ *   "distancia_km": 350
+ * }
  */
 @Data
 @Builder
-@FlightRouteValid
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Dados do voo para previsão de atraso")
-public class FlightPredictionRequest {
+public class PythonPredictionRequest {
 
-    @NotBlank(message = "Companhia aérea é obrigatória")
-    @Schema(description = "Código IATA da companhia aérea (2 caracteres alfanuméricos maiúsculos)", example = "G3", minLength = 2, maxLength = 2)
-    @Pattern(regexp = "^[A-Z0-9]{2}$", message = "O código da companhia aérea deve conter exatamente 2 caracteres alfanuméricos maiúsculos (IATA)")
-    @JsonProperty("companhia")
-    private String companhia;
+    @JsonProperty("companhia_icao")
+    private String companhiaIcao;
 
-    @NotBlank(message = "Aeroporto de origem é obrigatório")
-    @Schema(description = "Código IATA do aeroporto de origem (3 letras maiúsculas)", example = "GIG", minLength = 3, maxLength = 3)
-    @Pattern(regexp = "^[A-Z]{3}$", message = "A origem deve ser um código IATA válido, composto por exatamente 3 letras maiúsculas")
-    @JsonProperty("origem")
-    private String origem;
+    @JsonProperty("origem_icao")
+    private String origemIcao;
 
-    @NotBlank(message = "Aeroporto de destino é obrigatório")
-    @Schema(description = "Código IATA do aeroporto de destino (3 letras maiúsculas)", example = "GRU", minLength = 3, maxLength = 3)
-    @Pattern(regexp = "^[A-Z]{3}$", message = "O destino deve ser um código IATA válido, composto por exatamente 3 letras maiúsculas")
-    @JsonProperty("destino")
-    private String destino;
+    @JsonProperty("destino_icao")
+    private String destinoIcao;
 
-    @NotNull(message = "Data de partida é obrigatória")
-    @Future(message = "Data de partida deve ser futura")
-    @Schema(description = "Data e hora de partida do voo deve ser futura(Data considerada no fuso do servidor)", example = "2025-11-10T14:30:00")
     @JsonProperty("data_partida")
-    private LocalDateTime dataPartida;
+    private String dataPartida; // Formato ISO: "2025-11-10T14:30:00"
 
-    @Positive(message = "Distância deve ser um valor positivo")
-    @Schema(description = "Distância em quilômetros (Opcional)", example = "350")
     @JsonProperty("distancia_km")
     private Integer distanciaKm;
 }
