@@ -51,9 +51,8 @@ public class FlightPredictionRequest {
     @JsonProperty("data_partida")
     private LocalDateTime dataPartida;
 
-    @NotNull(message = "Distância é obrigatória")
     @Positive(message = "Distância deve ser um valor positivo")
-    @Schema(description = "Distância em quilômetros", example = "350")
+    @Schema(description = "Distância em quilômetros (Opcional)", example = "350")
     @JsonProperty("distancia_km")
     private Integer distanciaKm;
 }
