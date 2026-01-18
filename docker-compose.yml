@@ -21,31 +21,31 @@ services:
     image: flightontime-python:latest
 
     command: uvicorn api_app:app --host 0.0.0.0 --port 5000
-    
+
     ports:
       - "5000:5000"
-    
+
     environment:
       - PYTHONUNBUFFERED=1
       - PORT=5000
-    
+
     volumes:
       # Mount para desenvolvimento (hot reload)
       # Comentar em produção
       - ./data_science/semana_04/scripts:/app:ro
-    
+
     networks:
       - flightontime-network
-    
+
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 20s
-    
+
     restart: unless-stopped
-    
+
     labels:
       - "com.flightontime.service=python-api"
       - "com.flightontime.team=datascience"
@@ -59,10 +59,10 @@ services:
       dockerfile: Dockerfile
     container_name: flightontime-backend
     image: flightontime-backend:latest
-    
+
     ports:
       - "8080:8080"
-    
+
     environment:
       - JAVA_OPTS=-Xmx512m -Xms256m -XX:+UseContainerSupport
       - SERVER_PORT=8080
@@ -70,23 +70,23 @@ services:
       - PREDICTION_SERVICE_USE_MOCK=false
       - SPRING_PROFILES_ACTIVE=docker
       - TZ=America/Sao_Paulo
-    
+
     depends_on:
       python-api:
         condition: service_healthy
-    
+
     networks:
       - flightontime-network
-    
+
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
-    
+
     restart: unless-stopped
-    
+
     labels:
       - "com.flightontime.service=java-backend"
       - "com.flightontime.team=backend"
@@ -109,7 +109,7 @@ volumes:
 # ============================================================================
 # Como usar:
 # ============================================================================
-# 
+#
 # Iniciar todos os serviços:
 #   docker-compose up -d
 #
