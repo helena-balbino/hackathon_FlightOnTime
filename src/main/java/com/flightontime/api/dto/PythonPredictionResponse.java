@@ -21,17 +21,21 @@ import lombok.NoArgsConstructor;
  * }
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PythonPredictionResponse {
 
-    @JsonProperty("previsao")
-    private String previsao; // "Pontual" ou "Atrasado"
+    private Integer prediction;
+    private String label;
 
-    @JsonProperty("probabilidade")
-    private Double probabilidade; // 0.0 a 1.0
+    @JsonProperty("proba_atraso")
+    private Double probaAtraso;
 
-    @JsonProperty("modelo_versao")
-    private String modeloVersao; // Versão do modelo de ML
+    // AQUI ESTÁ O SEGREDO: O nome no JsonProperty deve ser igual ao do Python!
+    @JsonProperty("explain_global") 
+    private Object explainGlobal;
+
+    @JsonProperty("explain_local")
+    private Object explainLocal;
 }
+
